@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="u78-uc-j67">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zhP-q8-ASd" userLabel="container view">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9CE-5J-ikX">
+                                        <rect key="frame" x="255" y="29" width="90" height="30"/>
+                                        <color key="backgroundColor" red="0.56062718305730053" green="0.85271446745288515" blue="0.93497474747474751" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="背景测试按钮"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.86881046536257445" green="0.93497474747474751" blue="0.8632504848805127" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zhP-q8-ASd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4TW-UN-m8L"/>
+                            <constraint firstItem="zhP-q8-ASd" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="D27-Sq-uEK"/>
+                            <constraint firstAttribute="trailing" secondItem="zhP-q8-ASd" secondAttribute="trailing" id="EgA-Vw-MMb"/>
+                            <constraint firstItem="zhP-q8-ASd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Pud-n0-tPb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="A5j-pS-hzZ">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="4Pe-P1-Rj7">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ryB-CF-AdH">
+                                <rect key="frame" x="20" y="7" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="testIAP"/>
+                                <connections>
+                                    <action selector="testIAP:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EV9-cb-BOd"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="KFL-Lt-y2A">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="F1r-aM-7ke">
+                                <rect key="frame" x="447" y="7" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="verify"/>
+                                <connections>
+                                    <action selector="verify:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DDS-Tz-cWi"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="containerView" destination="zhP-q8-ASd" id="g0F-yw-wPr"/>
+                        <outlet property="verifyButton" destination="F1r-aM-7ke" id="fe4-Ps-dBO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1181" y="-375"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1Pr-r1-wgX">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u78-uc-j67" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vow-2E-ejf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZAX-DM-hSQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G0X-Jg-FFL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="307" y="-375"/>
+        </scene>
+    </scenes>
+</document>
