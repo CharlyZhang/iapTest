@@ -31,7 +31,7 @@
                                    callbackButton.onclick = function(e) {
                                    e.preventDefault()
                                    //log('JS calling handler "rechargeByIAP"')
-                                   bridge.callHandler('rechargeByIAP', {'userName': 'CharlyZhang', 'selectedIdx':2}, function(response) {
+                                   bridge.callHandler('rechargeByIAP', {'userName': 'CharlyZhang', 'selectedPid':'com.crtvup.kfysy.product.6coins'}, function(response) {
                                                       log('JS got response', response)
                                                       })
                                    }

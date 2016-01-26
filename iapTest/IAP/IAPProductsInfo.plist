@@ -2,29 +2,28 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>selectedIdx</key>
-	<integer>0</integer>
+	<key>selectedPid</key>
+	<string>com.crtvup.kfysy.product.6coins</string>
 	<key>products</key>
 	<dict>
 		<key>productIds</key>
-	<array>
-		<string>com.crtvup.kfysy.product.6coins</string>
-		<string>com.crtvup.kfysy.product.12coins</string>
-		<string>com.crtvup.kfysy.product.18coins</string>
-		<string>com.crtvup.kfysy.product.30coins</string>
-		<string>com.crtvup.kfysy.product.50coins</string>
-		<string>com.crtvup.kfysy.product.100coins</string>
-	</array>
-	<key>productPrices</key>
-	<array>
-		<integer>6</integer>
-		<integer>12</integer>
-		<integer>18</integer>
-		<integer>30</integer>
-		<integer>50</integer>
-		<integer>98</integer>
-	</array>
+		<array>
+			<string>com.crtvup.kfysy.product.6coins</string>
+			<string>com.crtvup.kfysy.product.12coins</string>
+			<string>com.crtvup.kfysy.product.18coins</string>
+			<string>com.crtvup.kfysy.product.30coins</string>
+			<string>com.crtvup.kfysy.product.50coins</string>
+			<string>com.crtvup.kfysy.product.100coins</string>
+		</array>
+		<key>productPrices</key>
+		<array>
+			<integer>6</integer>
+			<integer>12</integer>
+			<integer>18</integer>
+			<integer>30</integer>
+			<integer>50</integer>
+			<integer>98</integer>
+		</array>
 	</dict>
-
 </dict>
 </plist>

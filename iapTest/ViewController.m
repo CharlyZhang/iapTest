@@ -44,48 +44,7 @@
         [weakIapCtrl removeFromParentViewController];
     };
     
-    [self addChildViewController:iapCtrl];
-    [iapCtrl didMoveToParentViewController:self];
-    
-    UIView *ipaCtrlView = iapCtrl.view;
-    [ipaCtrlView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.containerView addSubview:ipaCtrlView];
-    NSDictionary *viewsDic = NSDictionaryOfVariableBindings(ipaCtrlView);
-    
-    NSArray *constraints = nil;
-    constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[ipaCtrlView]|"
-                                                          options:0
-                                                          metrics:nil
-                                                            views:viewsDic];
-    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[ipaCtrlView]|"
-                                                          options:0
-                                                          metrics:nil
-                                                            views:viewsDic]];
-    [self.containerView addConstraints:constraints];
-    
-    NSLayoutConstraint *constraint1 = [
-                                       NSLayoutConstraint
-                                       constraintWithItem:ipaCtrlView
-                                       attribute:NSLayoutAttributeWidth
-                                       relatedBy:NSLayoutRelationEqual
-                                       toItem:self.containerView
-                                       attribute:NSLayoutAttributeWidth
-                                       multiplier:1.0f
-                                       constant:0.0f
-                                       ];
-    [self.containerView addConstraint:constraint1];
-    
-    NSLayoutConstraint *constraint2 = [
-                                       NSLayoutConstraint
-                                       constraintWithItem:ipaCtrlView
-                                       attribute:NSLayoutAttributeHeight
-                                       relatedBy:NSLayoutRelationEqual
-                                       toItem:self.containerView
-                                       attribute:NSLayoutAttributeHeight
-                                       multiplier:1.0f
-                                       constant:0.0f
-                                       ];
-    [self.containerView addConstraint:constraint2];
+    [iapCtrl attachToParentController:self];
     
     sender.enabled = NO;
 }

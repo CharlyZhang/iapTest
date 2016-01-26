@@ -42,9 +42,9 @@
 
 - (instancetype)initWithInfo:(NSDictionary*)info {
     if (self = [super init]) {
-        selectedIdx = [info[@"selectedIdx"] integerValue];
         NSDictionary *products = info[@"products"];
         productIds = [products objectForKey:@"productIds"];
+        selectedIdx = [productIds indexOfObject:info[@"selectedPid"]];
         productPrices = [products objectForKey:@"productPrices"];
     }
     return self;
@@ -54,6 +54,50 @@
     if (!parentController) {
         return NO;
     }
+    
+    [parentController addChildViewController:self];
+    [self didMoveToParentViewController:parentController];
+    
+    UIView *parentView = parentController.view;
+    UIView *selfView = self.view;
+    [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [parentView addSubview:self.view];
+    NSDictionary *viewsDic = NSDictionaryOfVariableBindings(selfView);
+    
+    NSArray *constraints = nil;
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[selfView]|"
+                                                          options:0
+                                                          metrics:nil
+                                                            views:viewsDic];
+    constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[selfView]|"
+                                                                                                     options:0
+                                                                                                     metrics:nil
+                                                                                                       views:viewsDic]];
+    [parentView addConstraints:constraints];
+    
+    NSLayoutConstraint *constraint1 = [
+                                       NSLayoutConstraint
+                                       constraintWithItem:selfView
+                                       attribute:NSLayoutAttributeWidth
+                                       relatedBy:NSLayoutRelationEqual
+                                       toItem:parentView
+                                       attribute:NSLayoutAttributeWidth
+                                       multiplier:1.0f
+                                       constant:0.0f
+                                       ];
+    [parentView addConstraint:constraint1];
+    
+    NSLayoutConstraint *constraint2 = [
+                                       NSLayoutConstraint
+                                       constraintWithItem:selfView
+                                       attribute:NSLayoutAttributeHeight
+                                       relatedBy:NSLayoutRelationEqual
+                                       toItem:parentView
+                                       attribute:NSLayoutAttributeHeight
+                                       multiplier:1.0f
+                                       constant:0.0f
+                                       ];
+    [parentView addConstraint:constraint2];
     
     return YES;
 }
