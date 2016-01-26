@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -38,17 +39,29 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="A5j-pS-hzZ">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="4Pe-P1-Rj7">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ryB-CF-AdH">
-                                <rect key="frame" x="20" y="7" width="50" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="testIAP"/>
-                                <connections>
-                                    <action selector="testIAP:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EV9-cb-BOd"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem style="plain" id="4Pe-P1-Rj7">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ryB-CF-AdH">
+                                    <rect key="frame" x="20" y="7" width="50" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                    <state key="normal" title="testIAP"/>
+                                    <connections>
+                                        <action selector="testIAP:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EV9-cb-BOd"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="lqK-lG-2kb">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qVB-S0-dOd">
+                                    <rect key="frame" x="78" y="7" width="146" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="test JavascriptBridge"/>
+                                    <connections>
+                                        <segue destination="HYV-3l-mUZ" kind="presentation" id="CYs-xp-YbS"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="KFL-Lt-y2A">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="F1r-aM-7ke">
                                 <rect key="frame" x="447" y="7" width="133" height="30"/>
@@ -69,6 +82,54 @@
             </objects>
             <point key="canvasLocation" x="1181" y="-375"/>
         </scene>
+        <!--MyJS Web View Controller-->
+        <scene sceneID="zxu-37-g2Z">
+            <objects>
+                <viewController id="Wij-bI-MRC" customClass="MyJSWebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LI8-H8-sH1"/>
+                        <viewControllerLayoutGuide type="bottom" id="3vZ-AF-l22"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zbq-4G-tgX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="PA2-eG-FGr">
+                                <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHx-kH-V4h" customClass="MyJSBridgeWebView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PA2-eG-FGr" firstAttribute="centerY" secondItem="Zbq-4G-tgX" secondAttribute="centerY" id="9gH-5J-V7s"/>
+                            <constraint firstItem="PA2-eG-FGr" firstAttribute="centerX" secondItem="Zbq-4G-tgX" secondAttribute="centerX" id="9wy-gy-JbT"/>
+                            <constraint firstItem="PA2-eG-FGr" firstAttribute="centerY" secondItem="cHx-kH-V4h" secondAttribute="centerY" id="Gxb-gL-4Di"/>
+                            <constraint firstItem="cHx-kH-V4h" firstAttribute="height" secondItem="Zbq-4G-tgX" secondAttribute="height" id="MvE-44-nsO"/>
+                            <constraint firstItem="PA2-eG-FGr" firstAttribute="centerX" secondItem="cHx-kH-V4h" secondAttribute="centerX" id="QYv-XI-c46"/>
+                            <constraint firstItem="cHx-kH-V4h" firstAttribute="centerY" secondItem="Zbq-4G-tgX" secondAttribute="centerY" id="Rnm-QM-EAA"/>
+                            <constraint firstItem="cHx-kH-V4h" firstAttribute="width" secondItem="Zbq-4G-tgX" secondAttribute="width" id="cwq-Cg-JLN"/>
+                            <constraint firstItem="cHx-kH-V4h" firstAttribute="centerX" secondItem="Zbq-4G-tgX" secondAttribute="centerX" id="gt4-Z8-YtY"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Gxb-gL-4Di"/>
+                                <exclude reference="QYv-XI-c46"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="indicator" destination="PA2-eG-FGr" id="br6-F6-x3q"/>
+                        <outlet property="webView" destination="cHx-kH-V4h" id="INl-Zo-BPN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0j6-fW-33n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1181" y="330"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="1Pr-r1-wgX">
             <objects>
@@ -86,6 +147,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G0X-Jg-FFL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="307" y="-375"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="SA3-3E-CYE">
+            <objects>
+                <viewController id="HYV-3l-mUZ" customClass="WebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aac-aJ-45w"/>
+                        <viewControllerLayoutGuide type="bottom" id="do9-Tz-BfW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IiJ-z5-ur4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="joZ-fg-kYX">
+                                <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qa4-Jn-4yi">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Qa4-Jn-4yi" firstAttribute="centerX" secondItem="IiJ-z5-ur4" secondAttribute="centerX" id="37G-vg-IhV"/>
+                            <constraint firstItem="joZ-fg-kYX" firstAttribute="centerX" secondItem="IiJ-z5-ur4" secondAttribute="centerX" id="KUB-Lx-6yv"/>
+                            <constraint firstItem="joZ-fg-kYX" firstAttribute="centerY" secondItem="IiJ-z5-ur4" secondAttribute="centerY" id="Ngb-78-Azb"/>
+                            <constraint firstItem="Qa4-Jn-4yi" firstAttribute="width" secondItem="IiJ-z5-ur4" secondAttribute="width" id="dcs-Nt-WQw"/>
+                            <constraint firstItem="joZ-fg-kYX" firstAttribute="centerX" secondItem="Qa4-Jn-4yi" secondAttribute="centerX" id="f31-OK-D1G"/>
+                            <constraint firstItem="Qa4-Jn-4yi" firstAttribute="centerY" secondItem="IiJ-z5-ur4" secondAttribute="centerY" id="fmM-Rx-fuZ"/>
+                            <constraint firstItem="joZ-fg-kYX" firstAttribute="centerY" secondItem="Qa4-Jn-4yi" secondAttribute="centerY" id="rD4-sY-gIZ"/>
+                            <constraint firstItem="Qa4-Jn-4yi" firstAttribute="height" secondItem="IiJ-z5-ur4" secondAttribute="height" id="x2s-kg-PcR"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="rD4-sY-gIZ"/>
+                                <exclude reference="f31-OK-D1G"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="indicator" destination="joZ-fg-kYX" id="3LI-Sk-Mo2"/>
+                        <outlet property="webView" destination="Qa4-Jn-4yi" id="s2e-wg-Hfu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VlE-BB-CJ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1947" y="-370"/>
         </scene>
     </scenes>
 </document>

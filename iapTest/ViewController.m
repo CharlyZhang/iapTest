@@ -93,29 +93,38 @@
 - (IBAction)verify:(UIButton *)sender {
     
     NSString* receipt = [self encode:transactionReceipt.bytes length:transactionReceipt.length];
-    NSString *payload = [NSString stringWithFormat:@"{\"receipt-data\" : %@}",
+    NSString *payload = [NSString stringWithFormat:@"{'receipt-data': %@}",
                          receipt];
     
     NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:ITMS_SANDBOX_VERIFY_RECEIPT_URL]];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:payloadData];
-    NSError* err;
-    NSURLResponse *theResponse = nil;
-    NSData *data=[NSURLConnection sendSynchronousRequest:request
-                                       returningResponse:&theResponse
-                                                   error:&err];
-    NSError *jsonParsingError = nil;
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
-    NSLog(@"%@", dict);
-    NSLog(@"done");
+//    NSError* err;
+//    NSURLResponse *theResponse = nil;
+//    NSData *data=[NSURLConnection sendSynchronousRequest:request
+//                                       returningResponse:&theResponse
+//                                                   error:&err];
+    
+    NSURLSessionDataTask *sessionDataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:request
+        completionHandler:^(NSData *data, NSURLResponse *response,NSError *error){
+            if (error != nil){
+                NSLog(@"%@",error);
+            }else{
+                NSError *jsonParsingError = nil;
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
+                NSLog(@"%@", dict);
+                NSLog(@"done");
+            }
+        }];
+    [sessionDataTask resume];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.verifyButton.enabled = NO;
-    [self testIAP:nil];
 }
 
 #pragma mark -
