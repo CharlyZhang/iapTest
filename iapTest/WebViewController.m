@@ -8,6 +8,7 @@
 
 #import "WebViewController.h"
 #import "WebViewJavascriptBridge/WebViewJavascriptBridge.h"
+#import "IAP/IAPViewController.h"
 
 //#define TEST_URL @"http://ysy.crtvup.com.cn/cloudMall/mobile-bookshop.action?type=1&passport=yanshi1453442178419"
 //#define TEST_URL @"http://www.baidu.com"
@@ -39,12 +40,84 @@
     // Do any additional setup after loading the view.
     NSURL *url = [NSURL URLWithString:TEST_URL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-   // [self.webView loadRequest:request];
+    // [self.webView loadRequest:request];
     
     [WebViewJavascriptBridge enableLogging];
     
     [self.bridge registerHandler:@"testObjcCallback" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"testObjcCallback called: %@", data);
+        responseCallback(@"Response from testObjcCallback");
+    }];
+    
+    [self.bridge registerHandler:@"rechargeByIAP" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"rechargeByIAP called: %@", data);
+        
+        NSDictionary* jsonDic = (NSDictionary*)data;
+        NSNumber* selectedIdx = [data objectForKey:@"selectedIdx"];
+        
+        // Load the product identifiers fron ProductIds.plist
+        NSURL *plistURL = [[NSBundle mainBundle] URLForResource:@"IAPProductsInfo" withExtension:@"plist"];
+        NSMutableDictionary *prodcutInfo = [NSMutableDictionary dictionaryWithContentsOfURL:plistURL];
+        [prodcutInfo setObject:selectedIdx forKey:@"selectedIdx"];
+        
+        IAPViewController *iapCtrl = [[IAPViewController alloc] initWithInfo:prodcutInfo];
+        
+        __block UIViewController* blockSelf = self;
+        __weak IAPViewController *weakIapCtrl = iapCtrl;
+        iapCtrl.callBackHandler = ^(IAPStatus status, NSData *receipt) {
+            if (status == kIAPStatusSuccess) {
+                //                transactionReceipt = [receipt copy];
+                responseCallback(receipt);
+            }
+            
+            [weakIapCtrl willMoveToParentViewController:nil];
+            [weakIapCtrl.view removeFromSuperview];
+            [weakIapCtrl removeFromParentViewController];
+        };
+        
+        [self addChildViewController:iapCtrl];
+        [iapCtrl didMoveToParentViewController:self];
+        
+        UIView *ipaCtrlView = iapCtrl.view;
+        [ipaCtrlView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.view addSubview:ipaCtrlView];
+        NSDictionary *viewsDic = NSDictionaryOfVariableBindings(ipaCtrlView);
+        
+        NSArray *constraints = nil;
+        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[ipaCtrlView]|"
+                                                              options:0
+                                                              metrics:nil
+                                                                views:viewsDic];
+        constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[ipaCtrlView]|"
+                                                                                                         options:0
+                                                                                                         metrics:nil
+                                                                                                           views:viewsDic]];
+        [self.view addConstraints:constraints];
+        
+        NSLayoutConstraint *constraint1 = [
+                                           NSLayoutConstraint
+                                           constraintWithItem:ipaCtrlView
+                                           attribute:NSLayoutAttributeWidth
+                                           relatedBy:NSLayoutRelationEqual
+                                           toItem:self.view
+                                           attribute:NSLayoutAttributeWidth
+                                           multiplier:1.0f
+                                           constant:0.0f
+                                           ];
+        [self.view addConstraint:constraint1];
+        
+        NSLayoutConstraint *constraint2 = [
+                                           NSLayoutConstraint
+                                           constraintWithItem:ipaCtrlView
+                                           attribute:NSLayoutAttributeHeight
+                                           relatedBy:NSLayoutRelationEqual
+                                           toItem:self.view
+                                           attribute:NSLayoutAttributeHeight
+                                           multiplier:1.0f
+                                           constant:0.0f
+                                           ];
+        [self.view addConstraint:constraint2];
+        
         responseCallback(@"Response from testObjcCallback");
     }];
     
