@@ -11,7 +11,7 @@
 
 ## TO DO:
     
-    1. attatch Observer upon App lauching
+    1. attatch Observer upon App lauching & remove Observer when App is about to terminate
     2. 
 
 ## Reference

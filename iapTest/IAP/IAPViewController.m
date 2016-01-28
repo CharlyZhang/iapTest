@@ -110,7 +110,6 @@
     // Do any additional setup after loading the view from its nib.
     [self updateUI];
     
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:[IAPObserver sharedInstance]];
     if (![IAPManager sharedInstance].hasDeviceEnabledIAP) {
         [self.containerView setHidden:YES];
         [self.maskView setHidden:YES];
