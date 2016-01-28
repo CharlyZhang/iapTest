@@ -11,11 +11,14 @@
 #import "IAP/IAPViewController.h"
 
 //#define TEST_URL @"http://ysy.crtvup.com.cn/cloudMall/mobile-bookshop.action?type=1&passport=yanshi1453442178419"
-//#define TEST_URL @"http://www.baidu.com"
-
 #define TEST_URL @"http://172.19.43.61:8080/cloudMall/mobile-bookshop.action?passport=ipadair21416823216703"
+#define UPDATE_URL @"http://172.19.43.61:8080/ossFront/service/restmobile/addmoneyforios"
 
 @interface WebViewController () <UIWebViewDelegate>
+{
+    NSString* userName;
+    NSString* selectedPid;
+}
 @property (nonatomic, strong)WebViewJavascriptBridge* bridge;
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -40,20 +43,15 @@
     // Do any additional setup after loading the view.
     NSURL *url = [NSURL URLWithString:TEST_URL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    // [self.webView loadRequest:request];
+    [self.webView loadRequest:request];
     
     [WebViewJavascriptBridge enableLogging];
-    
-    [self.bridge registerHandler:@"testObjcCallback" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"testObjcCallback called: %@", data);
-        responseCallback(@"Response from testObjcCallback");
-    }];
     
     [self.bridge registerHandler:@"rechargeByIAP" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"rechargeByIAP called: %@", data);
         
-        NSDictionary* jsonDic = (NSDictionary*)data;
-        NSString* selectedPid = [data objectForKey:@"selectedPid"];
+        userName = [[data objectForKey:@"userName"] copy];
+        selectedPid = [data objectForKey:@"selectedPid"];
         
         // Load the product identifiers fron ProductIds.plist
         NSURL *plistURL = [[NSBundle mainBundle] URLForResource:@"IAPProductsInfo" withExtension:@"plist"];
@@ -62,12 +60,12 @@
         
         IAPViewController *iapCtrl = [[IAPViewController alloc] initWithInfo:prodcutInfo];
         
-        __block UIViewController* blockSelf = self;
+        __block WebViewController* blockSelf = self;
         __weak IAPViewController *weakIapCtrl = iapCtrl;
-        iapCtrl.callBackHandler = ^(IAPStatus status, NSData *receipt) {
+        iapCtrl.callBackHandler = ^(IAPStatus status, NSString *pid, NSData *receipt) {
             if (status == kIAPStatusSuccess) {
-                //                transactionReceipt = [receipt copy];
-                responseCallback(receipt);
+                selectedPid = [pid copy];
+                [blockSelf updateCloud:receipt callBack:responseCallback];
             }
             
             [weakIapCtrl willMoveToParentViewController:nil];
@@ -76,20 +74,11 @@
         };
         
         [iapCtrl attachToParentController:self];
-        
-        responseCallback(@"Response from testObjcCallback");
     }];
     
-    [self.bridge send:@"A string sent from ObjC before Webview has loaded." responseCallback:^(id responseData) {
-        NSLog(@"objc got response! %@", responseData);
-    }];
     
-    [self.bridge callHandler:@"testJavascriptHandler" data:@{ @"foo":@"before ready" }];
-    
-    [self renderButtons:self.webView];
-    [self loadExamplePage:self.webView];
-    
-    [_bridge send:@"A string sent from ObjC after Webview has loaded."];
+   // [self loadExamplePage:self.webView];
+
 }
 
 #pragma mark Delegate
@@ -109,45 +98,34 @@
 
 #pragma mark Private
 
-- (void)renderButtons:(UIWebView*)webView {
-    UIFont* font = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
+- (void)updateCloud:(NSData*)receipt callBack:(WVJBResponseCallback) responseCallback {
+    NSLog(@"receipt:\n%@",receipt);
     
-    UIButton *messageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [messageButton setTitle:@"Send message" forState:UIControlStateNormal];
-    [messageButton addTarget:self action:@selector(sendMessage:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view insertSubview:messageButton aboveSubview:webView];
-    messageButton.frame = CGRectMake(10, 414, 100, 35);
-    messageButton.titleLabel.font = font;
-    messageButton.backgroundColor = [UIColor colorWithWhite:1 alpha:0.75];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:UPDATE_URL]];
     
-    UIButton *callbackButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [callbackButton setTitle:@"Call handler" forState:UIControlStateNormal];
-    [callbackButton addTarget:self action:@selector(callHandler:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view insertSubview:callbackButton aboveSubview:webView];
-    callbackButton.frame = CGRectMake(110, 414, 100, 35);
-    callbackButton.titleLabel.font = font;
+    NSString *postString = [NSString stringWithFormat: @"user=%@&code=%@&receipt=%@", userName,selectedPid,receipt];
+    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
     
-    UIButton* reloadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [reloadButton setTitle:@"Reload webview" forState:UIControlStateNormal];
-    [reloadButton addTarget:webView action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
-    [self.view insertSubview:reloadButton aboveSubview:webView];
-    reloadButton.frame = CGRectMake(210, 414, 100, 35);
-    reloadButton.titleLabel.font = font;
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:postData];
+    
+    
+    NSURLSessionDataTask *sessionDataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:request
+                                                                             completionHandler:^(NSData *data, NSURLResponse *response,NSError *error){
+                                                                                 if (error != nil){
+                                                                                     NSLog(@"%@",error);
+                                                                                 }else{
+                                                                                     NSError *jsonParsingError = nil;
+                                                                                     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
+                                                                                     NSLog(@"%@", dict);
+                                                                                     NSLog(@"done");
+                                                                                 }
+                                                                             }];
+    [sessionDataTask resume];
 }
-
-- (void)sendMessage:(id)sender {
-    [_bridge send:@"A string sent from ObjC to JS" responseCallback:^(id response) {
-        NSLog(@"sendMessage got response: %@", response);
-    }];
-}
-
-- (void)callHandler:(id)sender {
-    id data = @{ @"greetingFromObjC": @"Hi there, JS!" };
-    [_bridge callHandler:@"testJavascriptHandler" data:data responseCallback:^(id response) {
-        NSLog(@"testJavascriptHandler responded: %@", response);
-    }];
-}
-
 
 - (void)loadExamplePage:(UIWebView*)webView {
     NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"ExampleApp" ofType:@"html"];

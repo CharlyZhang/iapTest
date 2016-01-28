@@ -25,17 +25,32 @@
     }
     
     connectWebViewJavascriptBridge(function(bridge) {
+                                   uniqueId = 0
+                                   function log(message, data) {
+                                   var log = document.getElementById('log')
+                                   var el = document.createElement('div')
+                                   el.className = 'logLine'
+                                   el.innerHTML = uniqueId++ + '. ' + message + ':<br/>' + JSON.stringify(data)
+                                   if (log.children.length) { log.insertBefore(el, log.children[0]) }
+                                   else { log.appendChild(el) }
+                                   }
                                    
                                    var callbackButton = document.getElementById('buttons').appendChild(document.createElement('button'))
                                    callbackButton.innerHTML = 'Fire rechargeByIAP'
                                    callbackButton.onclick = function(e) {
                                    e.preventDefault()
-                                   //log('JS calling handler "rechargeByIAP"')
-                                   bridge.callHandler('rechargeByIAP', {'userName': 'CharlyZhang', 'selectedPid':'com.crtvup.kfysy.product.6coins'}, function(response) {
+                                   log('JS calling handler "rechargeByIAP"')
+                                   bridge.callHandler('rechargeByIAP',
+                                                      {'userName': 'ipadair2', 'selectedPid':'com.crtvup.kfysy.product.6coins'},
+                                                      function(response) {
                                                       log('JS got response', response)
                                                       })
                                    }
                                    })
+                                   
         </script>
     <div id='buttons'></div> <div id='log'></div>
 </body></html>
+
+
+

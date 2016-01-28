@@ -14,6 +14,7 @@
 @interface ViewController ()
 {
     NSData *transactionReceipt;
+    NSString *selectedPid;
 }
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -33,9 +34,10 @@
     
     __block ViewController* blockSelf = self;
     __weak IAPViewController *weakIapCtrl = iapCtrl;
-    iapCtrl.callBackHandler = ^(IAPStatus status, NSData *receipt) {
+    iapCtrl.callBackHandler = ^(IAPStatus status, NSString *poroductId, NSData *receipt) {
         if (status == kIAPStatusSuccess) {
             transactionReceipt = [receipt copy];
+            selectedPid = [poroductId copy];
             blockSelf.verifyButton.enabled = YES;
         }
         
@@ -48,6 +50,7 @@
     
     sender.enabled = NO;
 }
+
 
 - (IBAction)verify:(UIButton *)sender {
     

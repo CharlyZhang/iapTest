@@ -115,7 +115,7 @@
         [self.containerView setHidden:YES];
         [self.maskView setHidden:YES];
         [self alertWithTitle:@"警告" message:@"当前系统设置不允许应用内支付，请检查系统设置并在此尝试。" handler:^(UIAlertAction *action){
-            self.callBackHandler(kIAPStatusFail,nil);
+            self.callBackHandler(kIAPStatusFail,nil,nil);
         }];
     }
     else {
@@ -128,7 +128,7 @@
 - (IBAction)close:(UIButton *)sender
 {
     if (self.callBackHandler) {
-        self.callBackHandler(kIAPStatusFail,nil);
+        self.callBackHandler(kIAPStatusFail,nil,nil);
     }
 }
 
@@ -186,7 +186,7 @@
     iapManager.requestResponseHandler = ^(BOOL result) {
         if (result == NO)  {
             [self alertWithTitle:@"错误" message:@"请求商品列表时错误" handler:^(UIAlertAction *action){
-                self.callBackHandler(kIAPStatusFail,nil);
+                self.callBackHandler(kIAPStatusFail,nil,nil);
             }];
         }
     };
@@ -196,7 +196,7 @@
     iapObserver.paymentHandler = ^(BOOL result, id info) {
         if (result) {
             NSData *transactionReceipt = (NSData*)info;
-            self.callBackHandler(kIAPStatusSuccess,transactionReceipt);
+            self.callBackHandler(kIAPStatusSuccess, productIds[selectedIdx], transactionReceipt);
         }
         else  {
             NSError *error = (NSError*)info;
@@ -210,11 +210,11 @@
 
             if (message) {
                 [self alertWithTitle:@"购买失败" message:message handler:^(UIAlertAction *action){
-                    self.callBackHandler(kIAPStatusFail,nil);
+                    self.callBackHandler(kIAPStatusFail,nil,nil);
                 }];
             }
             else {
-                self.callBackHandler(kIAPStatusFail,nil);
+                self.callBackHandler(kIAPStatusFail,nil,nil);
             }
         }
     };
