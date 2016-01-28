@@ -8,3 +8,12 @@
 3. Assign a callback block to **IAPViewController**,*callBackHandler*, which handler the result of IAP and detach the **IAPViewController** instance
 4. Attach the **IAPViewController** instance to a container view controller
 
+
+## TO DO:
+    
+    1. attatch Observer upon App lauching
+    2. 
+
+## Reference
+
+https://developer.apple.com/library/ios/technotes/tn2387/_index.html

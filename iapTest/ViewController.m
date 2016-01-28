@@ -14,6 +14,7 @@
 @interface ViewController ()
 {
     NSData *transactionReceipt;
+    NSString *selectedPid;
 }
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -33,9 +34,10 @@
     
     __block ViewController* blockSelf = self;
     __weak IAPViewController *weakIapCtrl = iapCtrl;
-    iapCtrl.callBackHandler = ^(IAPStatus status, NSData *receipt) {
+    iapCtrl.callBackHandler = ^(IAPStatus status, NSString *poroductId, NSData *receipt) {
         if (status == kIAPStatusSuccess) {
             transactionReceipt = [receipt copy];
+            selectedPid = [poroductId copy];
             blockSelf.verifyButton.enabled = YES;
         }
         
@@ -49,21 +51,23 @@
     sender.enabled = NO;
 }
 
+#define UPDATE_URL @"http://172.19.43.61:8080/ossFront/service/restmobile/addmoneyforios"
+
 - (IBAction)verify:(UIButton *)sender {
     
-    NSString* receipt = [self encode:transactionReceipt.bytes length:transactionReceipt.length];
-    NSString *payload = [NSString stringWithFormat:@"{'receipt-data': %@}",
-                         receipt];
+    NSLog(@"%@",transactionReceipt);
     
-    NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:ITMS_SANDBOX_VERIFY_RECEIPT_URL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:UPDATE_URL]];
+    
+    NSString *postString = [NSString stringWithFormat: @"user=ipadair2&code=%@&receipt=%@", selectedPid, transactionReceipt];
+    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postString length]];
+
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:payloadData];
-//    NSError* err;
-//    NSURLResponse *theResponse = nil;
-//    NSData *data=[NSURLConnection sendSynchronousRequest:request
-//                                       returningResponse:&theResponse
-//                                                   error:&err];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:postData];
+    
     
     NSURLSessionDataTask *sessionDataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:request
         completionHandler:^(NSData *data, NSURLResponse *response,NSError *error){
@@ -83,7 +87,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.verifyButton.enabled = NO;
+    self.verifyButton.enabled = YES;
 }
 
 #pragma mark -
