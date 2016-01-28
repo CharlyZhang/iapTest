@@ -51,19 +51,15 @@
 
 - (IBAction)verify:(UIButton *)sender {
     
-    NSString* receipt = [self encode:transactionReceipt.bytes length:transactionReceipt.length];
-    NSString *payload = [NSString stringWithFormat:@"{'receipt-data': %@}",
-                         receipt];
+    NSString *receipt = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"}", [self encode:transactionReceipt.bytes length:transactionReceipt.length]];
     
-    NSData *payloadData = [payload dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *payloadData = [receipt dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:ITMS_SANDBOX_VERIFY_RECEIPT_URL]];
+    
     [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:payloadData];
-//    NSError* err;
-//    NSURLResponse *theResponse = nil;
-//    NSData *data=[NSURLConnection sendSynchronousRequest:request
-//                                       returningResponse:&theResponse
-//                                                   error:&err];
     
     NSURLSessionDataTask *sessionDataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:request
         completionHandler:^(NSData *data, NSURLResponse *response,NSError *error){
