@@ -43,7 +43,8 @@
     // Do any additional setup after loading the view.
     NSURL *url = [NSURL URLWithString:TEST_URL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:request];
+//    [self.webView loadRequest:request];
+    [self loadExamplePage:self.webView];
     
     [WebViewJavascriptBridge enableLogging];
     
@@ -52,6 +53,7 @@
         
         userName = [[data objectForKey:@"userName"] copy];
         selectedPid = [data objectForKey:@"selectedPid"];
+        responseCallback(@"OK");
         
         // Load the product identifiers fron ProductIds.plist
         NSURL *plistURL = [[NSBundle mainBundle] URLForResource:@"IAPProductsInfo" withExtension:@"plist"];
@@ -67,6 +69,9 @@
                 selectedPid = [pid copy];
                 [blockSelf updateCloud:receipt callBack:responseCallback];
             }
+            else {
+                [blockSelf.bridge callHandler:@"updateAmout" data:@{@"status":@"-2",@"msg":@"IAP canceled or failed"}];
+            }
             
             [weakIapCtrl willMoveToParentViewController:nil];
             [weakIapCtrl.view removeFromSuperview];
@@ -75,9 +80,6 @@
         
         [iapCtrl attachToParentController:self];
     }];
-    
-    
-   // [self loadExamplePage:self.webView];
 
 }
 
@@ -112,16 +114,30 @@
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:postData];
     
+    // TO DO:
+    //// save related information for next request
     
+    __block WebViewController *blockSelf = self;
     NSURLSessionDataTask *sessionDataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:request
                                                                              completionHandler:^(NSData *data, NSURLResponse *response,NSError *error){
                                                                                  if (error != nil){
                                                                                      NSLog(@"%@",error);
+                                                                                     NSDictionary *info = @{@"status":@"-3",
+                                                                                                            @"msg":@"更新数据库发生错误"};
+                                                                                     // TO DO:
+                                                                                     //// save related information for next request
+                                                                                     [blockSelf.bridge
+                                                                                      callHandler:@"updateAmout" data:info];
                                                                                  }else{
                                                                                      NSError *jsonParsingError = nil;
                                                                                      NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
                                                                                      NSLog(@"%@", dict);
                                                                                      NSLog(@"done");
+                                                                                     
+                                                                                     // TO DO:
+                                                                                     //// clear related information when responce is success or repeated
+                                                                                     
+                                                                                     [blockSelf.bridge callHandler:@"updateAmout" data:dict];
                                                                                  }
                                                                              }];
     [sessionDataTask resume];
