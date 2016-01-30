@@ -7,8 +7,12 @@
 //
 
 #import "IAPObserver.h"
+#import "ServerManager.h"
 
 //#define DEBUG
+
+NSString * const IAPPaymentSuccessNotification = @"IAPPaymentSuccessNotification";
+NSString * const IAPPaymentErrorNotification = @"IAPPaymentErrorNotification";
 
 @interface IAPObserver()
 
@@ -24,10 +28,15 @@
     
     dispatch_once(&onceToken, ^{
         iapObserverSharedInstance = [[IAPObserver alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:[ServerManager sharedInstance] selector:@selector(handlePaymentSuccessNotification:) name:IAPPaymentSuccessNotification object:nil];
     });
     return iapObserverSharedInstance;
 }
 
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:[ServerManager sharedInstance] name:IAPPaymentSuccessNotification object:nil];
+}
 #pragma mark -
 #pragma mark SKPaymentTransactionObserver methods
 
@@ -51,19 +60,18 @@
                 NSLog(@"Deliver content for %@",transaction.payment.productIdentifier);
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 
-                if (self.paymentHandler) {
-                    NSData *transactionReceipt;
-                    
-                    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-                        // Load resources for iOS 6.1 or earlier
-                        transactionReceipt = transaction.transactionReceipt;
-                    } else {
-                        // Load resources for iOS 7 or later
-                        transactionReceipt = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
-                    }         
-
-                    self.paymentHandler(YES, transactionReceipt);
+                NSData *transactionReceipt;
+                
+                if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+                    // Load resources for iOS 6.1 or earlier
+                    transactionReceipt = transaction.transactionReceipt;
+                } else {
+                    // Load resources for iOS 7 or later
+                    transactionReceipt = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
                 }
+                
+                NSDictionary *info = @{@"productId":transaction.payment.productIdentifier,@"receipt":transactionReceipt};
+                [[NSNotificationCenter defaultCenter] postNotificationName:IAPPaymentSuccessNotification object:self userInfo:info];
             }
                 break;
                 // There are restored products
@@ -104,9 +112,8 @@
                         break;
                 }
 #endif
-                if (self.paymentHandler) {
-                    self.paymentHandler(NO,transaction.error);
-                }
+                NSDictionary *info = @{@"error":transaction.error};
+                [[NSNotificationCenter defaultCenter] postNotificationName:IAPPaymentErrorNotification object:self userInfo:info];
                 
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
             }

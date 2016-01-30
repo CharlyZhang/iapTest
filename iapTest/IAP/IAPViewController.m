@@ -122,6 +122,12 @@
     }
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:IAPPaymentSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:IAPPaymentErrorNotification object:nil];
+}
+
 #pragma mark - Action
 
 - (IBAction)close:(UIButton *)sender
@@ -191,32 +197,8 @@
     };
     
     // payment handlers
-    IAPObserver *iapObserver = [IAPObserver sharedInstance];
-    iapObserver.paymentHandler = ^(BOOL result, id info) {
-        if (result) {
-            NSData *transactionReceipt = (NSData*)info;
-            self.callBackHandler(kIAPStatusSuccess, productIds[selectedIdx], transactionReceipt);
-        }
-        else  {
-            NSError *error = (NSError*)info;
-            NSString *message = nil;
-            if (SKErrorPaymentInvalid == error.code) {
-                message = @"购买的阅读豆无效";
-            }
-            else if (SKErrorStoreProductNotAvailable == error.code) {
-                message = @"购买的阅读豆数目不支持";
-            }
-
-            if (message) {
-                [self alertWithTitle:@"购买失败" message:message handler:^(UIAlertAction *action){
-                    self.callBackHandler(kIAPStatusFail,nil,nil);
-                }];
-            }
-            else {
-                self.callBackHandler(kIAPStatusFail,nil,nil);
-            }
-        }
-    };
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePaymentSuccessNotification:) name:IAPPaymentSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePaymentErrorNotification:) name:IAPPaymentErrorNotification object:nil];
 }
 
 - (void) tapHandler:(UIGestureRecognizer *)tap {
@@ -253,4 +235,33 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)handlePaymentSuccessNotification:(NSNotification*)notification
+{
+    NSDictionary *info = notification.userInfo;
+    NSString *productId = [info objectForKey:@"productId"];
+    NSData *transactionReceipt = [info objectForKey:@"receipt"];
+    self.callBackHandler(kIAPStatusSuccess, productId, transactionReceipt);
+    
+}
+- (void)handlePaymentErrorNotification:(NSNotification*)notification
+{
+    NSDictionary *info = notification.userInfo;
+    NSError *error = [info objectForKey:@"error"];
+    NSString *message = nil;
+    if (SKErrorPaymentInvalid == error.code) {
+        message = @"购买的阅读豆无效";
+    }
+    else if (SKErrorStoreProductNotAvailable == error.code) {
+        message = @"购买的阅读豆数目不支持";
+    }
+    
+    if (message) {
+        [self alertWithTitle:@"购买失败" message:message handler:^(UIAlertAction *action){
+            self.callBackHandler(kIAPStatusFail,nil,nil);
+        }];
+    }
+    else {
+        self.callBackHandler(kIAPStatusFail,nil,nil);
+    }
+}
 @end

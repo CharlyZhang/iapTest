@@ -9,15 +9,14 @@
 #import "WebViewController.h"
 #import "WebViewJavascriptBridge/WebViewJavascriptBridge.h"
 #import "IAP/IAPViewController.h"
+#import "ServerManager.h"
 
 //#define TEST_URL @"http://ysy.crtvup.com.cn/cloudMall/mobile-bookshop.action?type=1&passport=yanshi1453442178419"
 #define TEST_URL @"http://172.19.43.61:8080/cloudMall/mobile-bookshop.action?passport=ipadair21416823216703"
-#define UPDATE_URL @"http://172.19.43.61:8080/ossFront/service/restmobile/addmoneyforios"
 
 @interface WebViewController () <UIWebViewDelegate>
 {
     NSString* userName;
-    NSString* selectedPid;
 }
 @property (nonatomic, strong)WebViewJavascriptBridge* bridge;
 
@@ -46,13 +45,18 @@
 //    [self.webView loadRequest:request];
     [self loadExamplePage:self.webView];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseSuccessNotification:) name:ServerResponseSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseErrorNotification:) name:ServerResponseErrorNotification object:nil];
+    
     [WebViewJavascriptBridge enableLogging];
     
     [self.bridge registerHandler:@"rechargeByIAP" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"rechargeByIAP called: %@", data);
         
         userName = [[data objectForKey:@"userName"] copy];
-        selectedPid = [data objectForKey:@"selectedPid"];
+        [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"lastUserName"];
+        
+        NSString *selectedPid = [data objectForKey:@"selectedPid"];
         responseCallback(@"OK");
         
         // Load the product identifiers fron ProductIds.plist
@@ -65,11 +69,7 @@
         __block WebViewController* blockSelf = self;
         __weak IAPViewController *weakIapCtrl = iapCtrl;
         iapCtrl.callBackHandler = ^(IAPStatus status, NSString *pid, NSData *receipt) {
-            if (status == kIAPStatusSuccess) {
-                selectedPid = [pid copy];
-                [blockSelf updateCloud:receipt callBack:responseCallback];
-            }
-            else {
+            if (status == kIAPStatusFail) {
                 [blockSelf.bridge callHandler:@"updateAmout" data:@{@"status":@"-2",@"msg":@"IAP canceled or failed"}];
             }
             
@@ -79,8 +79,15 @@
         };
         
         [iapCtrl attachToParentController:self];
+        
     }];
 
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ServerResponseSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ServerResponseErrorNotification object:nil];
 }
 
 #pragma mark Delegate
@@ -100,47 +107,32 @@
 
 #pragma mark Private
 
-- (void)updateCloud:(NSData*)receipt callBack:(WVJBResponseCallback) responseCallback {
-    NSLog(@"receipt:\n%@",receipt);
+- (void)handleServerResponseSuccessNotification:(NSNotification*)notification {
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:UPDATE_URL]];
+    NSDictionary *info = notification.userInfo;
+    NSData *data = [info objectForKey:@"data"];
     
-    NSString *postString = [NSString stringWithFormat: @"user=%@&code=%@&receipt=%@", userName,selectedPid,receipt];
-    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
+    NSError *jsonParsingError = nil;
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
+    NSLog(@"%@", dict);
+    NSLog(@"done");
     
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:postData];
+    // clear related information when responce is success or repeated
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastTransaciton"];
     
-    // TO DO:
-    //// save related information for next request
+    [self.bridge callHandler:@"updateAmout" data:dict];
+}
+
+- (void)handleServerResponseErrorNotification:(NSNotification*)notification {
     
-    __block WebViewController *blockSelf = self;
-    NSURLSessionDataTask *sessionDataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:request
-                                                                             completionHandler:^(NSData *data, NSURLResponse *response,NSError *error){
-                                                                                 if (error != nil){
-                                                                                     NSLog(@"%@",error);
-                                                                                     NSDictionary *info = @{@"status":@"-3",
-                                                                                                            @"msg":@"更新数据库发生错误"};
-                                                                                     // TO DO:
-                                                                                     //// save related information for next request
-                                                                                     [blockSelf.bridge
-                                                                                      callHandler:@"updateAmout" data:info];
-                                                                                 }else{
-                                                                                     NSError *jsonParsingError = nil;
-                                                                                     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
-                                                                                     NSLog(@"%@", dict);
-                                                                                     NSLog(@"done");
-                                                                                     
-                                                                                     // TO DO:
-                                                                                     //// clear related information when responce is success or repeated
-                                                                                     
-                                                                                     [blockSelf.bridge callHandler:@"updateAmout" data:dict];
-                                                                                 }
-                                                                             }];
-    [sessionDataTask resume];
+    NSDictionary *info = notification.userInfo;
+    NSError *error = [info objectForKey:@"error"];
+    
+    NSLog(@"%@",error);
+    NSDictionary *responseData = @{@"status":@"-3",
+                                   @"msg":@"更新数据库发生错误"};
+    
+    [self.bridge callHandler:@"updateAmout" data:responseData];
 }
 
 - (void)loadExamplePage:(UIWebView*)webView {
