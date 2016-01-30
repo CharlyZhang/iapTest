@@ -82,54 +82,6 @@
             </objects>
             <point key="canvasLocation" x="1181" y="-375"/>
         </scene>
-        <!--MyJS Web View Controller-->
-        <scene sceneID="zxu-37-g2Z">
-            <objects>
-                <viewController id="Wij-bI-MRC" customClass="MyJSWebViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="LI8-H8-sH1"/>
-                        <viewControllerLayoutGuide type="bottom" id="3vZ-AF-l22"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Zbq-4G-tgX">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="PA2-eG-FGr">
-                                <rect key="frame" x="282" y="281" width="37" height="37"/>
-                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHx-kH-V4h" customClass="MyJSBridgeWebView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
-                            </webView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="PA2-eG-FGr" firstAttribute="centerY" secondItem="Zbq-4G-tgX" secondAttribute="centerY" id="9gH-5J-V7s"/>
-                            <constraint firstItem="PA2-eG-FGr" firstAttribute="centerX" secondItem="Zbq-4G-tgX" secondAttribute="centerX" id="9wy-gy-JbT"/>
-                            <constraint firstItem="PA2-eG-FGr" firstAttribute="centerY" secondItem="cHx-kH-V4h" secondAttribute="centerY" id="Gxb-gL-4Di"/>
-                            <constraint firstItem="cHx-kH-V4h" firstAttribute="height" secondItem="Zbq-4G-tgX" secondAttribute="height" id="MvE-44-nsO"/>
-                            <constraint firstItem="PA2-eG-FGr" firstAttribute="centerX" secondItem="cHx-kH-V4h" secondAttribute="centerX" id="QYv-XI-c46"/>
-                            <constraint firstItem="cHx-kH-V4h" firstAttribute="centerY" secondItem="Zbq-4G-tgX" secondAttribute="centerY" id="Rnm-QM-EAA"/>
-                            <constraint firstItem="cHx-kH-V4h" firstAttribute="width" secondItem="Zbq-4G-tgX" secondAttribute="width" id="cwq-Cg-JLN"/>
-                            <constraint firstItem="cHx-kH-V4h" firstAttribute="centerX" secondItem="Zbq-4G-tgX" secondAttribute="centerX" id="gt4-Z8-YtY"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Gxb-gL-4Di"/>
-                                <exclude reference="QYv-XI-c46"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <connections>
-                        <outlet property="indicator" destination="PA2-eG-FGr" id="br6-F6-x3q"/>
-                        <outlet property="webView" destination="cHx-kH-V4h" id="INl-Zo-BPN"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0j6-fW-33n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1181" y="330"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="1Pr-r1-wgX">
             <objects>
@@ -182,8 +134,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="rD4-sY-gIZ"/>
                                 <exclude reference="f31-OK-D1G"/>
+                                <exclude reference="rD4-sY-gIZ"/>
                             </mask>
                         </variation>
                     </view>

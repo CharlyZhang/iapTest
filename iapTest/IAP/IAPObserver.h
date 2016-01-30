@@ -9,13 +9,10 @@
 #import <Foundation/Foundation.h>
 @import StoreKit;
 
-
-typedef void(^paymentHandlerBlock)(BOOL result, id info);
+extern NSString * const IAPPaymentSuccessNotification;
+extern NSString * const IAPPaymentErrorNotification;
 
 @interface IAPObserver : NSObject<SKPaymentTransactionObserver>
-
-@property (nonatomic, copy) paymentHandlerBlock paymentHandler;
-
 
 + (IAPObserver *)sharedInstance;
 

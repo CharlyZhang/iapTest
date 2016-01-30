@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D3A74151C5C9E4E0003BC1A /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A74141C5C9E4E0003BC1A /* ServerManager.m */; };
 		2DB8627F1C47A49F0041C19B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8627E1C47A49F0041C19B /* main.m */; };
 		2DB862821C47A49F0041C19B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862811C47A49F0041C19B /* AppDelegate.m */; };
 		2DB862881C47A49F0041C19B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DB862861C47A49F0041C19B /* Main.storyboard */; };
@@ -50,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D3A74131C5C9E4E0003BC1A /* ServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerManager.h; sourceTree = "<group>"; };
+		2D3A74141C5C9E4E0003BC1A /* ServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerManager.m; sourceTree = "<group>"; };
 		2DB8627A1C47A49F0041C19B /* iapTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iapTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB8627E1C47A49F0041C19B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2DB862801C47A49F0041C19B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 				2DB862E51C57413E0041C19B /* ExampleApp.html */,
 				2DB8631E1C5760190041C19B /* WebViewController.h */,
 				2DB8631F1C5760190041C19B /* WebViewController.m */,
+				2D3A74131C5C9E4E0003BC1A /* ServerManager.h */,
+				2D3A74141C5C9E4E0003BC1A /* ServerManager.m */,
 				2DB862B51C4F2BC90041C19B /* IAP */,
 				2DB862C31C4F82950041C19B /* ViewController.h */,
 				2DB862C41C4F82950041C19B /* ViewController.m */,
@@ -360,6 +365,7 @@
 				2DB863201C5760190041C19B /* WebViewController.m in Sources */,
 				2DB863171C575DD70041C19B /* WKWebViewJavascriptBridge.m in Sources */,
 				2DB863151C575DD70041C19B /* WebViewJavascriptBridge.m in Sources */,
+				2D3A74151C5C9E4E0003BC1A /* ServerManager.m in Sources */,
 				2DB862BA1C4F2CC30041C19B /* ReadMe.md in Sources */,
 				2DB862D51C50A87D0041C19B /* IAPChoiceView.m in Sources */,
 				2DB862C51C4F82950041C19B /* ViewController.m in Sources */,
