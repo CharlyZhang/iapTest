@@ -7,7 +7,7 @@
 //
 
 #import "WebViewController.h"
-#import "WebViewJavascriptBridge/WebViewJavascriptBridge.h"
+#import "WebViewJavascriptBridge.h"
 #import "IAP/IAPViewController.h"
 #import "ServerManager.h"
 
@@ -29,10 +29,7 @@
 
 - (WebViewJavascriptBridge*) bridge {
     if (!_bridge) {
-        _bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView handler:^(id data, WVJBResponseCallback responseCallback) {
-            NSLog(@"ObjC received message from JS: %@", data);
-            responseCallback(@"Response for message from ObjC");
-        }];
+        _bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
     }
     return _bridge;
 }
@@ -42,8 +39,8 @@
     // Do any additional setup after loading the view.
     NSURL *url = [NSURL URLWithString:TEST_URL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    [self.webView loadRequest:request];
-    [self loadExamplePage:self.webView];
+    [self.webView loadRequest:request];
+//    [self loadExamplePage:self.webView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseSuccessNotification:) name:ServerResponseSuccessNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseErrorNotification:) name:ServerResponseErrorNotification object:nil];
@@ -110,17 +107,11 @@
 - (void)handleServerResponseSuccessNotification:(NSNotification*)notification {
     
     NSDictionary *info = notification.userInfo;
-    NSData *data = [info objectForKey:@"data"];
+    NSDictionary *dataDict = [info objectForKey:@"dataDict"];
+
+    NSLog(@"%@", dataDict);
     
-    NSError *jsonParsingError = nil;
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
-    NSLog(@"%@", dict);
-    NSLog(@"done");
-    
-    // clear related information when responce is success or repeated
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastTransaciton"];
-    
-    [self.bridge callHandler:@"updateAmout" data:dict];
+    [self.bridge callHandler:@"updateAmout" data:dataDict];
 }
 
 - (void)handleServerResponseErrorNotification:(NSNotification*)notification {

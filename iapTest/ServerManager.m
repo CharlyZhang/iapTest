@@ -46,17 +46,29 @@ NSString * const ServerResponseErrorNotification = @"ServerResponseErrorNotifica
     NSDictionary *lastTransaciton = @{@"userName":userName,@"productId":productId, @"receipt":receipt};
     [[NSUserDefaults standardUserDefaults] setObject:lastTransaciton forKey:@"lastTransaciton"];
     
+    typedef void (^SessionDataTaskCompletionBlock)(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error);
+             
+    SessionDataTaskCompletionBlock handler = ^(NSData *data, NSURLResponse *response,NSError *error){
+        if (error) {
+            NSDictionary *info = @{@"error":error};
+            [[NSNotificationCenter defaultCenter]postNotificationName:ServerResponseErrorNotification object:nil userInfo:info];
+        }
+        else {
+            
+            NSError *jsonParsingError = nil;
+            NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
+            
+            NSString *status = [dataDict objectForKey:@"status"];
+            
+            // clear related information when responce is success or repeated
+            if ([status intValue] > 0)  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastTransaciton"];
+            NSDictionary *info = @{@"dataDict":dataDict};
+            [[NSNotificationCenter defaultCenter]postNotificationName:ServerResponseSuccessNotification object:nil userInfo:info];
+        }
+    };
+    
     NSURLSessionDataTask *sessionDataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:request
-                                                                             completionHandler:^(NSData *data, NSURLResponse *response,NSError *error){
-                                                                                 if (error) {
-                                                                                     NSDictionary *info = @{@"error":error};
-                                                                                     [[NSNotificationCenter defaultCenter]postNotificationName:ServerResponseErrorNotification object:nil userInfo:info];
-                                                                                 }
-                                                                                 else {
-                                                                                     NSDictionary *info = @{@"data":data};
-                                                                                     [[NSNotificationCenter defaultCenter]postNotificationName:ServerResponseSuccessNotification object:nil userInfo:info];
-                                                                                 }
-                                                                             }];
+                                                                             completionHandler:handler];
     [sessionDataTask resume];
 }
 

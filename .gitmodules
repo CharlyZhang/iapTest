@@ -1,0 +1,6 @@
+[submodule "iapTest/ThirdPart/Reachability"]
+	path = iapTest/ThirdPart/Reachability
+	url = https://github.com/tonymillion/Reachability.git
+[submodule "iapTest/ThirdPart/WebViewJavascriptBridge"]
+	path = iapTest/ThirdPart/WebViewJavascriptBridge
+	url = https://github.com/marcuswestin/WebViewJavascriptBridge.git
