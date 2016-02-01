@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2D3A74151C5C9E4E0003BC1A /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A74141C5C9E4E0003BC1A /* ServerManager.m */; };
+		2D3A74201C5F088D0003BC1A /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A74191C5F088D0003BC1A /* WebViewJavascriptBridge_JS.m */; };
+		2D3A74211C5F088D0003BC1A /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A741B1C5F088D0003BC1A /* WebViewJavascriptBridge.m */; };
+		2D3A74221C5F088D0003BC1A /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A741D1C5F088D0003BC1A /* WebViewJavascriptBridgeBase.m */; };
+		2D3A74231C5F088D0003BC1A /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A741F1C5F088D0003BC1A /* WKWebViewJavascriptBridge.m */; };
+		2D3A74261C5F11E50003BC1A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A74251C5F11E50003BC1A /* Reachability.m */; };
 		2DB8627F1C47A49F0041C19B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8627E1C47A49F0041C19B /* main.m */; };
 		2DB862821C47A49F0041C19B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862811C47A49F0041C19B /* AppDelegate.m */; };
 		2DB862881C47A49F0041C19B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DB862861C47A49F0041C19B /* Main.storyboard */; };
@@ -26,10 +31,6 @@
 		2DB862D51C50A87D0041C19B /* IAPChoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862D41C50A87D0041C19B /* IAPChoiceView.m */; };
 		2DB862D91C522DCE0041C19B /* logo.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DB862D81C522DCE0041C19B /* logo.xcassets */; };
 		2DB862E61C57413E0041C19B /* ExampleApp.html in Resources */ = {isa = PBXBuildFile; fileRef = 2DB862E51C57413E0041C19B /* ExampleApp.html */; };
-		2DB863141C575DD70041C19B /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2DB8630E1C575DD70041C19B /* WebViewJavascriptBridge.js.txt */; };
-		2DB863151C575DD70041C19B /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8630F1C575DD70041C19B /* WebViewJavascriptBridge.m */; };
-		2DB863161C575DD70041C19B /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB863111C575DD70041C19B /* WebViewJavascriptBridgeBase.m */; };
-		2DB863171C575DD70041C19B /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB863131C575DD70041C19B /* WKWebViewJavascriptBridge.m */; };
 		2DB863201C5760190041C19B /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8631F1C5760190041C19B /* WebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,16 @@
 /* Begin PBXFileReference section */
 		2D3A74131C5C9E4E0003BC1A /* ServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerManager.h; sourceTree = "<group>"; };
 		2D3A74141C5C9E4E0003BC1A /* ServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerManager.m; sourceTree = "<group>"; };
+		2D3A74181C5F088D0003BC1A /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewJavascriptBridge_JS.h; path = ThirdPart/WebViewJavascriptBridge/WebViewJavascriptBridge/WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
+		2D3A74191C5F088D0003BC1A /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewJavascriptBridge_JS.m; path = ThirdPart/WebViewJavascriptBridge/WebViewJavascriptBridge/WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
+		2D3A741A1C5F088D0003BC1A /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewJavascriptBridge.h; path = ThirdPart/WebViewJavascriptBridge/WebViewJavascriptBridge/WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		2D3A741B1C5F088D0003BC1A /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewJavascriptBridge.m; path = ThirdPart/WebViewJavascriptBridge/WebViewJavascriptBridge/WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		2D3A741C1C5F088D0003BC1A /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewJavascriptBridgeBase.h; path = ThirdPart/WebViewJavascriptBridge/WebViewJavascriptBridge/WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		2D3A741D1C5F088D0003BC1A /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewJavascriptBridgeBase.m; path = ThirdPart/WebViewJavascriptBridge/WebViewJavascriptBridge/WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		2D3A741E1C5F088D0003BC1A /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WKWebViewJavascriptBridge.h; path = ThirdPart/WebViewJavascriptBridge/WebViewJavascriptBridge/WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		2D3A741F1C5F088D0003BC1A /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WKWebViewJavascriptBridge.m; path = ThirdPart/WebViewJavascriptBridge/WebViewJavascriptBridge/WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		2D3A74241C5F11E50003BC1A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ThirdPart/Reachability/Reachability.h; sourceTree = "<group>"; };
+		2D3A74251C5F11E50003BC1A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ThirdPart/Reachability/Reachability.m; sourceTree = "<group>"; };
 		2DB8627A1C47A49F0041C19B /* iapTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iapTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB8627E1C47A49F0041C19B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2DB862801C47A49F0041C19B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -84,13 +95,6 @@
 		2DB862D81C522DCE0041C19B /* logo.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = logo.xcassets; path = IAP/logo.xcassets; sourceTree = "<group>"; };
 		2DB862DA1C52324A0041C19B /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		2DB862E51C57413E0041C19B /* ExampleApp.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ExampleApp.html; sourceTree = "<group>"; };
-		2DB8630D1C575DD70041C19B /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewJavascriptBridge.h; path = WebViewJavascriptBridge/WebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		2DB8630E1C575DD70041C19B /* WebViewJavascriptBridge.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WebViewJavascriptBridge.js.txt; path = WebViewJavascriptBridge/WebViewJavascriptBridge.js.txt; sourceTree = "<group>"; };
-		2DB8630F1C575DD70041C19B /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewJavascriptBridge.m; path = WebViewJavascriptBridge/WebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		2DB863101C575DD70041C19B /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewJavascriptBridgeBase.h; path = WebViewJavascriptBridge/WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
-		2DB863111C575DD70041C19B /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewJavascriptBridgeBase.m; path = WebViewJavascriptBridge/WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
-		2DB863121C575DD70041C19B /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WKWebViewJavascriptBridge.h; path = WebViewJavascriptBridge/WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		2DB863131C575DD70041C19B /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WKWebViewJavascriptBridge.m; path = WebViewJavascriptBridge/WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		2DB8631E1C5760190041C19B /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		2DB8631F1C5760190041C19B /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +124,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D3A74161C5F07C10003BC1A /* TirdPart */ = {
+			isa = PBXGroup;
+			children = (
+				2D3A74171C5F08660003BC1A /* Reachability */,
+				2DB8630C1C575DBF0041C19B /* WebViewJavascriptBridge */,
+			);
+			name = TirdPart;
+			sourceTree = "<group>";
+		};
+		2D3A74171C5F08660003BC1A /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				2D3A74241C5F11E50003BC1A /* Reachability.h */,
+				2D3A74251C5F11E50003BC1A /* Reachability.m */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
 		2DB862711C47A49F0041C19B = {
 			isa = PBXGroup;
 			children = (
@@ -144,7 +166,7 @@
 		2DB8627C1C47A49F0041C19B /* iapTest */ = {
 			isa = PBXGroup;
 			children = (
-				2DB8630C1C575DBF0041C19B /* WebViewJavascriptBridge */,
+				2D3A74161C5F07C10003BC1A /* TirdPart */,
 				2DB862E51C57413E0041C19B /* ExampleApp.html */,
 				2DB8631E1C5760190041C19B /* WebViewController.h */,
 				2DB8631F1C5760190041C19B /* WebViewController.m */,
@@ -213,13 +235,14 @@
 		2DB8630C1C575DBF0041C19B /* WebViewJavascriptBridge */ = {
 			isa = PBXGroup;
 			children = (
-				2DB8630D1C575DD70041C19B /* WebViewJavascriptBridge.h */,
-				2DB8630E1C575DD70041C19B /* WebViewJavascriptBridge.js.txt */,
-				2DB8630F1C575DD70041C19B /* WebViewJavascriptBridge.m */,
-				2DB863101C575DD70041C19B /* WebViewJavascriptBridgeBase.h */,
-				2DB863111C575DD70041C19B /* WebViewJavascriptBridgeBase.m */,
-				2DB863121C575DD70041C19B /* WKWebViewJavascriptBridge.h */,
-				2DB863131C575DD70041C19B /* WKWebViewJavascriptBridge.m */,
+				2D3A74181C5F088D0003BC1A /* WebViewJavascriptBridge_JS.h */,
+				2D3A74191C5F088D0003BC1A /* WebViewJavascriptBridge_JS.m */,
+				2D3A741A1C5F088D0003BC1A /* WebViewJavascriptBridge.h */,
+				2D3A741B1C5F088D0003BC1A /* WebViewJavascriptBridge.m */,
+				2D3A741C1C5F088D0003BC1A /* WebViewJavascriptBridgeBase.h */,
+				2D3A741D1C5F088D0003BC1A /* WebViewJavascriptBridgeBase.m */,
+				2D3A741E1C5F088D0003BC1A /* WKWebViewJavascriptBridge.h */,
+				2D3A741F1C5F088D0003BC1A /* WKWebViewJavascriptBridge.m */,
 			);
 			name = WebViewJavascriptBridge;
 			sourceTree = "<group>";
@@ -330,7 +353,6 @@
 			files = (
 				2DB862BF1C4F62120041C19B /* IAPProductsInfo.plist in Resources */,
 				2DB8628D1C47A49F0041C19B /* LaunchScreen.storyboard in Resources */,
-				2DB863141C575DD70041C19B /* WebViewJavascriptBridge.js.txt in Resources */,
 				2DB862CD1C4FA1A40041C19B /* IAPViewController.xib in Resources */,
 				2DB8628A1C47A49F0041C19B /* Assets.xcassets in Resources */,
 				2DB862881C47A49F0041C19B /* Main.storyboard in Resources */,
@@ -361,19 +383,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D3A74221C5F088D0003BC1A /* WebViewJavascriptBridgeBase.m in Sources */,
 				2DB862B81C4F2C150041C19B /* IAPObserver.m in Sources */,
 				2DB863201C5760190041C19B /* WebViewController.m in Sources */,
-				2DB863171C575DD70041C19B /* WKWebViewJavascriptBridge.m in Sources */,
-				2DB863151C575DD70041C19B /* WebViewJavascriptBridge.m in Sources */,
+				2D3A74231C5F088D0003BC1A /* WKWebViewJavascriptBridge.m in Sources */,
+				2D3A74261C5F11E50003BC1A /* Reachability.m in Sources */,
+				2D3A74211C5F088D0003BC1A /* WebViewJavascriptBridge.m in Sources */,
 				2D3A74151C5C9E4E0003BC1A /* ServerManager.m in Sources */,
 				2DB862BA1C4F2CC30041C19B /* ReadMe.md in Sources */,
 				2DB862D51C50A87D0041C19B /* IAPChoiceView.m in Sources */,
 				2DB862C51C4F82950041C19B /* ViewController.m in Sources */,
 				2DB862821C47A49F0041C19B /* AppDelegate.m in Sources */,
 				2DB862BD1C4F611E0041C19B /* IAPManager.m in Sources */,
+				2D3A74201C5F088D0003BC1A /* WebViewJavascriptBridge_JS.m in Sources */,
 				2DB8627F1C47A49F0041C19B /* main.m in Sources */,
 				2DB862CC1C4FA1A40041C19B /* IAPViewController.m in Sources */,
-				2DB863161C575DD70041C19B /* WebViewJavascriptBridgeBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +537,7 @@
 		2DB862A81C47A4A00041C19B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -521,12 +546,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.crtvup.kfysy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "./iapTest/ThirdPart/**";
 			};
 			name = Debug;
 		};
 		2DB862A91C47A4A00041C19B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -535,6 +562,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.crtvup.kfysy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "./iapTest/ThirdPart/**";
 			};
 			name = Release;
 		};
