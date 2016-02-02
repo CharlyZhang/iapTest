@@ -7,6 +7,7 @@
 //
 
 #import "ServerManager.h"
+#import "NetworkReach.h"
 
 #define UPDATE_URL @"http://172.19.43.61:8080/ossFront/service/restmobile/addmoneyforios"
 
@@ -26,10 +27,23 @@ NSString * const ServerResponseErrorNotification = @"ServerResponseErrorNotifica
     return serverManagerSharedInstance;
 }
 
+- (instancetype)init
+{
+    if(self = [super init]) {
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleNetworkConnected:) name:kNetworkConnectedNotification object:nil];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 
 - (void) updateUser:(NSString*) userName withProductId:(NSString*)productId andReceipt:(NSData*)receipt
 {
-    NSLog(@"receipt:\n%@",receipt);
+//    NSLog(@"receipt:\n%@",receipt);
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:UPDATE_URL]];
     
@@ -81,8 +95,31 @@ NSString * const ServerResponseErrorNotification = @"ServerResponseErrorNotifica
     
     NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUserName"];
     
+    // TO DO:
+        //// ensure the userName is the logged user
     if (userName) {
         [self updateUser:userName withProductId:productId andReceipt:transactionReceipt];
+    }
+}
+
+
+- (void)handleNetworkConnected:(NSNotification*)notification
+{
+    [self reupdateIfNeed];
+}
+
+- (void)reupdateIfNeed
+{
+    NSDictionary *lastTransaciton = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastTransaciton"];
+    
+    NSLog(@"reupdateIfNeed");
+    
+    if (lastTransaciton) {
+        NSLog(@"reupdate");
+        NSString *userName = [lastTransaciton objectForKey:@"userName"];
+        NSString *productId = [lastTransaciton objectForKey:@"productId"];
+        NSData *receipt = [lastTransaciton objectForKey:@"receipt"];
+        [self updateUser:userName withProductId:productId andReceipt:receipt];
     }
 }
 

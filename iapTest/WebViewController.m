@@ -45,9 +45,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseSuccessNotification:) name:ServerResponseSuccessNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseErrorNotification:) name:ServerResponseErrorNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseSuccessNotification:) name:ServerResponseSuccessNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseErrorNotification:) name:ServerResponseErrorNotification object:nil];
-    
     [WebViewJavascriptBridge enableLogging];
     
     [self.bridge registerHandler:@"rechargeByIAP" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -68,9 +65,9 @@
         
         __block WebViewController* blockSelf = self;
         __weak IAPViewController *weakIapCtrl = iapCtrl;
-        iapCtrl.callBackHandler = ^(IAPStatus status, NSString *pid, NSData *receipt) {
+        iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
             if (status == kIAPStatusFail) {
-                [blockSelf.bridge callHandler:@"updateAmout" data:@{@"status":@"-2",@"msg":@"IAP canceled or failed"}];
+                [blockSelf.bridge callHandler:@"updateAmout" data:data];
             }
             
             [weakIapCtrl willMoveToParentViewController:nil];

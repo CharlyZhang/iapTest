@@ -13,6 +13,8 @@
 		2D3A74221C5F088D0003BC1A /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A741D1C5F088D0003BC1A /* WebViewJavascriptBridgeBase.m */; };
 		2D3A74231C5F088D0003BC1A /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A741F1C5F088D0003BC1A /* WKWebViewJavascriptBridge.m */; };
 		2D3A74261C5F11E50003BC1A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A74251C5F11E50003BC1A /* Reachability.m */; };
+		2D3A74281C6074E90003BC1A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D3A74271C6074E80003BC1A /* SystemConfiguration.framework */; };
+		2D3A742B1C6075B60003BC1A /* NetworkReach.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A742A1C6075B60003BC1A /* NetworkReach.m */; };
 		2DB8627F1C47A49F0041C19B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8627E1C47A49F0041C19B /* main.m */; };
 		2DB862821C47A49F0041C19B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862811C47A49F0041C19B /* AppDelegate.m */; };
 		2DB862881C47A49F0041C19B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DB862861C47A49F0041C19B /* Main.storyboard */; };
@@ -21,7 +23,6 @@
 		2DB862981C47A4A00041C19B /* iapTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862971C47A4A00041C19B /* iapTestTests.m */; };
 		2DB862A31C47A4A00041C19B /* iapTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862A21C47A4A00041C19B /* iapTestUITests.m */; };
 		2DB862B81C4F2C150041C19B /* IAPObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862B71C4F2C150041C19B /* IAPObserver.m */; };
-		2DB862BA1C4F2CC30041C19B /* ReadMe.md in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862B91C4F2CC30041C19B /* ReadMe.md */; };
 		2DB862BD1C4F611E0041C19B /* IAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862BC1C4F611E0041C19B /* IAPManager.m */; };
 		2DB862BF1C4F62120041C19B /* IAPProductsInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2DB862BE1C4F62120041C19B /* IAPProductsInfo.plist */; };
 		2DB862C51C4F82950041C19B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862C41C4F82950041C19B /* ViewController.m */; };
@@ -64,6 +65,9 @@
 		2D3A741F1C5F088D0003BC1A /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WKWebViewJavascriptBridge.m; path = ThirdPart/WebViewJavascriptBridge/WebViewJavascriptBridge/WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		2D3A74241C5F11E50003BC1A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ThirdPart/Reachability/Reachability.h; sourceTree = "<group>"; };
 		2D3A74251C5F11E50003BC1A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ThirdPart/Reachability/Reachability.m; sourceTree = "<group>"; };
+		2D3A74271C6074E80003BC1A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		2D3A74291C6075B60003BC1A /* NetworkReach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkReach.h; sourceTree = "<group>"; };
+		2D3A742A1C6075B60003BC1A /* NetworkReach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkReach.m; sourceTree = "<group>"; };
 		2DB8627A1C47A49F0041C19B /* iapTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iapTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB8627E1C47A49F0041C19B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2DB862801C47A49F0041C19B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -104,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D3A74281C6074E90003BC1A /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +150,7 @@
 		2DB862711C47A49F0041C19B = {
 			isa = PBXGroup;
 			children = (
+				2D3A74271C6074E80003BC1A /* SystemConfiguration.framework */,
 				2DB862DA1C52324A0041C19B /* ReadMe.md */,
 				2DB8627C1C47A49F0041C19B /* iapTest */,
 				2DB862961C47A4A00041C19B /* iapTestTests */,
@@ -172,6 +178,8 @@
 				2DB8631F1C5760190041C19B /* WebViewController.m */,
 				2D3A74131C5C9E4E0003BC1A /* ServerManager.h */,
 				2D3A74141C5C9E4E0003BC1A /* ServerManager.m */,
+				2D3A74291C6075B60003BC1A /* NetworkReach.h */,
+				2D3A742A1C6075B60003BC1A /* NetworkReach.m */,
 				2DB862B51C4F2BC90041C19B /* IAP */,
 				2DB862C31C4F82950041C19B /* ViewController.h */,
 				2DB862C41C4F82950041C19B /* ViewController.m */,
@@ -390,12 +398,12 @@
 				2D3A74261C5F11E50003BC1A /* Reachability.m in Sources */,
 				2D3A74211C5F088D0003BC1A /* WebViewJavascriptBridge.m in Sources */,
 				2D3A74151C5C9E4E0003BC1A /* ServerManager.m in Sources */,
-				2DB862BA1C4F2CC30041C19B /* ReadMe.md in Sources */,
 				2DB862D51C50A87D0041C19B /* IAPChoiceView.m in Sources */,
 				2DB862C51C4F82950041C19B /* ViewController.m in Sources */,
 				2DB862821C47A49F0041C19B /* AppDelegate.m in Sources */,
 				2DB862BD1C4F611E0041C19B /* IAPManager.m in Sources */,
 				2D3A74201C5F088D0003BC1A /* WebViewJavascriptBridge_JS.m in Sources */,
+				2D3A742B1C6075B60003BC1A /* NetworkReach.m in Sources */,
 				2DB8627F1C47A49F0041C19B /* main.m in Sources */,
 				2DB862CC1C4FA1A40041C19B /* IAPViewController.m in Sources */,
 			);
@@ -469,7 +477,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chen Liu (9X3K34XKWP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chen Liu (9X3K34XKWP)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -491,6 +500,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "a5c6c756-6da5-4c49-8a0e-60f8c50af81d";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -513,7 +523,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chen Liu (9X3K34XKWP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chen Liu (9X3K34XKWP)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -528,6 +539,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "a5c6c756-6da5-4c49-8a0e-60f8c50af81d";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

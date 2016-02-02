@@ -8,6 +8,8 @@
 
 #import "IAPViewController.h"
 #import "IAPChoiceView.h"
+#import "NetworkReach.h"
+#import "ServerManager.h"
 
 #define CHOICE_LEFT_MARGIN  86
 #define CHOICE_TOP_MARGIN   46
@@ -110,11 +112,24 @@
     // Do any additional setup after loading the view from its nib.
     [self updateUI];
     
+    if (![NetworkReach sharedInstance].isConnected) {
+        [self.containerView setHidden:YES];
+        [self.maskView setHidden:YES];
+        [self alertWithTitle:@"警告" message:@"网络连接断开" handler:^(UIAlertAction *action){
+            self.callBackHandler(kIAPStatusFail,@{@"status":@"-4",@"msg":@"Network disconnected"});
+        }];
+        
+        return;
+
+    }
+    
+    [[ServerManager sharedInstance]reupdateIfNeed];
+    
     if (![IAPManager sharedInstance].hasDeviceEnabledIAP) {
         [self.containerView setHidden:YES];
         [self.maskView setHidden:YES];
         [self alertWithTitle:@"警告" message:@"当前系统设置不允许应用内支付，请检查系统设置并在此尝试。" handler:^(UIAlertAction *action){
-            self.callBackHandler(kIAPStatusFail,nil,nil);
+            self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"IAP ist not allowed by OS"});
         }];
     }
     else {
@@ -133,7 +148,7 @@
 - (IBAction)close:(UIButton *)sender
 {
     if (self.callBackHandler) {
-        self.callBackHandler(kIAPStatusFail,nil,nil);
+        self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"user closed"});
     }
 }
 
@@ -191,7 +206,7 @@
     iapManager.requestResponseHandler = ^(BOOL result) {
         if (result == NO)  {
             [self alertWithTitle:@"错误" message:@"请求商品列表时错误" handler:^(UIAlertAction *action){
-                self.callBackHandler(kIAPStatusFail,nil,nil);
+                self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"IAP product requested error"});
             }];
         }
     };
@@ -238,9 +253,7 @@
 - (void)handlePaymentSuccessNotification:(NSNotification*)notification
 {
     NSDictionary *info = notification.userInfo;
-    NSString *productId = [info objectForKey:@"productId"];
-    NSData *transactionReceipt = [info objectForKey:@"receipt"];
-    self.callBackHandler(kIAPStatusSuccess, productId, transactionReceipt);
+    self.callBackHandler(kIAPStatusSuccess, info);
     
 }
 - (void)handlePaymentErrorNotification:(NSNotification*)notification
@@ -257,11 +270,11 @@
     
     if (message) {
         [self alertWithTitle:@"购买失败" message:message handler:^(UIAlertAction *action){
-            self.callBackHandler(kIAPStatusFail,nil,nil);
+            self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"IAP payment error"});
         }];
     }
     else {
-        self.callBackHandler(kIAPStatusFail,nil,nil);
+        self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"IAP payment error"});
     }
 }
 @end

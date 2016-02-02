@@ -17,7 +17,7 @@ typedef enum {
     kIAPStatusFail
 } IAPStatus;
 
-typedef void (^IAPBlock)(IAPStatus status, NSString* selectedPid, NSData *receipt);
+typedef void (^IAPBlock)(IAPStatus status, NSDictionary* data);
 
 @interface IAPViewController : UIViewController
 

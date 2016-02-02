@@ -34,10 +34,10 @@
     
     __block ViewController* blockSelf = self;
     __weak IAPViewController *weakIapCtrl = iapCtrl;
-    iapCtrl.callBackHandler = ^(IAPStatus status, NSString *poroductId, NSData *receipt) {
+    iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
         if (status == kIAPStatusSuccess) {
-            transactionReceipt = [receipt copy];
-            selectedPid = [poroductId copy];
+            selectedPid = [[data objectForKey:@"productId"] copy];
+            transactionReceipt = [[data objectForKey:@"receipt"] copy];
             blockSelf.verifyButton.enabled = YES;
         }
         

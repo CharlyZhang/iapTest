@@ -19,4 +19,6 @@ extern NSString * const ServerResponseErrorNotification;
 
 - (void) updateUser:(NSString*) userName withProductId:(NSString*)productId andReceipt:(NSData*)receipt;
 
+- (void)reupdateIfNeed;
+
 @end
