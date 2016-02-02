@@ -52,6 +52,7 @@
         
         userName = [[data objectForKey:@"userName"] copy];
         [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"lastUserName"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         NSString *selectedPid = [data objectForKey:@"selectedPid"];
         responseCallback(@"OK");

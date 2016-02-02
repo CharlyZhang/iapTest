@@ -58,7 +58,6 @@ NSString * const IAPPaymentErrorNotification = @"IAPPaymentErrorNotification";
             case SKPaymentTransactionStatePurchased:
             {
                 NSLog(@"Deliver content for %@",transaction.payment.productIdentifier);
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 
                 NSData *transactionReceipt;
                 
@@ -72,6 +71,8 @@ NSString * const IAPPaymentErrorNotification = @"IAPPaymentErrorNotification";
                 
                 NSDictionary *info = @{@"productId":transaction.payment.productIdentifier,@"receipt":transactionReceipt};
                 [[NSNotificationCenter defaultCenter] postNotificationName:IAPPaymentSuccessNotification object:self userInfo:info];
+                
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
             }
                 break;
                 // There are restored products

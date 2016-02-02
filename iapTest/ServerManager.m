@@ -59,6 +59,7 @@ NSString * const ServerResponseErrorNotification = @"ServerResponseErrorNotifica
     // save related information for next request
     NSDictionary *lastTransaciton = @{@"userName":userName,@"productId":productId, @"receipt":receipt};
     [[NSUserDefaults standardUserDefaults] setObject:lastTransaciton forKey:@"lastTransaciton"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     typedef void (^SessionDataTaskCompletionBlock)(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error);
              
@@ -75,7 +76,11 @@ NSString * const ServerResponseErrorNotification = @"ServerResponseErrorNotifica
             NSString *status = [dataDict objectForKey:@"status"];
             
             // clear related information when responce is success or repeated
-            if ([status intValue] > 0)  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastTransaciton"];
+            if ([status intValue] > 0)
+            {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastTransaciton"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
             NSDictionary *info = @{@"dataDict":dataDict};
             [[NSNotificationCenter defaultCenter]postNotificationName:ServerResponseSuccessNotification object:nil userInfo:info];
         }
