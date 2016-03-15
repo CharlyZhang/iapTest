@@ -15,6 +15,12 @@
 		2D3A74261C5F11E50003BC1A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A74251C5F11E50003BC1A /* Reachability.m */; };
 		2D3A74281C6074E90003BC1A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D3A74271C6074E80003BC1A /* SystemConfiguration.framework */; };
 		2D3A742B1C6075B60003BC1A /* NetworkReach.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A742A1C6075B60003BC1A /* NetworkReach.m */; };
+		2D6C2C161C8FC8DB0033B0ED /* IAPIphoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C2C151C8FC8DB0033B0ED /* IAPIphoneViewController.m */; };
+		2D6C2C1A1C92ACBB0033B0ED /* IAPIphoneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C2C191C92ACBB0033B0ED /* IAPIphoneTableViewCell.m */; };
+		2D6C2C1D1C92AF7C0033B0ED /* IAPIphoneTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C2C1C1C92AF7C0033B0ED /* IAPIphoneTopBarView.m */; };
+		2D6C2C201C92B0AD0033B0ED /* IAPIphoneTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C2C1F1C92B0AD0033B0ED /* IAPIphoneTableFooterView.m */; };
+		2D9AFD561C96B6D4005BF278 /* IAPIphoneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D9AFD551C96B6D4005BF278 /* IAPIphoneView.xib */; };
+		2D9AFD581C96DBB6005BF278 /* IAPIphoneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D9AFD571C96DBB6005BF278 /* IAPIphoneTableViewCell.xib */; };
 		2DB8627F1C47A49F0041C19B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8627E1C47A49F0041C19B /* main.m */; };
 		2DB862821C47A49F0041C19B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862811C47A49F0041C19B /* AppDelegate.m */; };
 		2DB862881C47A49F0041C19B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DB862861C47A49F0041C19B /* Main.storyboard */; };
@@ -68,6 +74,16 @@
 		2D3A74271C6074E80003BC1A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2D3A74291C6075B60003BC1A /* NetworkReach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkReach.h; sourceTree = "<group>"; };
 		2D3A742A1C6075B60003BC1A /* NetworkReach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkReach.m; sourceTree = "<group>"; };
+		2D6C2C141C8FC8DB0033B0ED /* IAPIphoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAPIphoneViewController.h; path = IAP/IAPIphoneViewController.h; sourceTree = "<group>"; };
+		2D6C2C151C8FC8DB0033B0ED /* IAPIphoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPIphoneViewController.m; path = IAP/IAPIphoneViewController.m; sourceTree = "<group>"; };
+		2D6C2C181C92ACBB0033B0ED /* IAPIphoneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAPIphoneTableViewCell.h; path = IAP/IAPIphoneTableViewCell.h; sourceTree = "<group>"; };
+		2D6C2C191C92ACBB0033B0ED /* IAPIphoneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPIphoneTableViewCell.m; path = IAP/IAPIphoneTableViewCell.m; sourceTree = "<group>"; };
+		2D6C2C1B1C92AF7C0033B0ED /* IAPIphoneTopBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAPIphoneTopBarView.h; path = IAP/IAPIphoneTopBarView.h; sourceTree = "<group>"; };
+		2D6C2C1C1C92AF7C0033B0ED /* IAPIphoneTopBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPIphoneTopBarView.m; path = IAP/IAPIphoneTopBarView.m; sourceTree = "<group>"; };
+		2D6C2C1E1C92B0AD0033B0ED /* IAPIphoneTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAPIphoneTableFooterView.h; path = IAP/IAPIphoneTableFooterView.h; sourceTree = "<group>"; };
+		2D6C2C1F1C92B0AD0033B0ED /* IAPIphoneTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPIphoneTableFooterView.m; path = IAP/IAPIphoneTableFooterView.m; sourceTree = "<group>"; };
+		2D9AFD551C96B6D4005BF278 /* IAPIphoneView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IAPIphoneView.xib; path = IAP/IAPIphoneView.xib; sourceTree = "<group>"; };
+		2D9AFD571C96DBB6005BF278 /* IAPIphoneTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IAPIphoneTableViewCell.xib; path = IAP/IAPIphoneTableViewCell.xib; sourceTree = "<group>"; };
 		2DB8627A1C47A49F0041C19B /* iapTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iapTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB8627E1C47A49F0041C19B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2DB862801C47A49F0041C19B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -147,6 +163,23 @@
 			name = Reachability;
 			sourceTree = "<group>";
 		};
+		2D6C2C171C8FFC790033B0ED /* iphone */ = {
+			isa = PBXGroup;
+			children = (
+				2D6C2C141C8FC8DB0033B0ED /* IAPIphoneViewController.h */,
+				2D6C2C151C8FC8DB0033B0ED /* IAPIphoneViewController.m */,
+				2D6C2C181C92ACBB0033B0ED /* IAPIphoneTableViewCell.h */,
+				2D6C2C191C92ACBB0033B0ED /* IAPIphoneTableViewCell.m */,
+				2D6C2C1B1C92AF7C0033B0ED /* IAPIphoneTopBarView.h */,
+				2D6C2C1C1C92AF7C0033B0ED /* IAPIphoneTopBarView.m */,
+				2D6C2C1E1C92B0AD0033B0ED /* IAPIphoneTableFooterView.h */,
+				2D6C2C1F1C92B0AD0033B0ED /* IAPIphoneTableFooterView.m */,
+				2D9AFD551C96B6D4005BF278 /* IAPIphoneView.xib */,
+				2D9AFD571C96DBB6005BF278 /* IAPIphoneTableViewCell.xib */,
+			);
+			name = iphone;
+			sourceTree = "<group>";
+		};
 		2DB862711C47A49F0041C19B = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +256,7 @@
 		2DB862B51C4F2BC90041C19B /* IAP */ = {
 			isa = PBXGroup;
 			children = (
+				2D6C2C171C8FFC790033B0ED /* iphone */,
 				2DB862B61C4F2C150041C19B /* IAPObserver.h */,
 				2DB862B71C4F2C150041C19B /* IAPObserver.m */,
 				2DB862BB1C4F611E0041C19B /* IAPManager.h */,
@@ -363,6 +397,8 @@
 				2DB8628D1C47A49F0041C19B /* LaunchScreen.storyboard in Resources */,
 				2DB862CD1C4FA1A40041C19B /* IAPViewController.xib in Resources */,
 				2DB8628A1C47A49F0041C19B /* Assets.xcassets in Resources */,
+				2D9AFD561C96B6D4005BF278 /* IAPIphoneView.xib in Resources */,
+				2D9AFD581C96DBB6005BF278 /* IAPIphoneTableViewCell.xib in Resources */,
 				2DB862881C47A49F0041C19B /* Main.storyboard in Resources */,
 				2DB862D91C522DCE0041C19B /* logo.xcassets in Resources */,
 				2DB862D21C507F3D0041C19B /* IAPChoiceView.xib in Resources */,
@@ -391,12 +427,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D6C2C161C8FC8DB0033B0ED /* IAPIphoneViewController.m in Sources */,
 				2D3A74221C5F088D0003BC1A /* WebViewJavascriptBridgeBase.m in Sources */,
 				2DB862B81C4F2C150041C19B /* IAPObserver.m in Sources */,
 				2DB863201C5760190041C19B /* WebViewController.m in Sources */,
 				2D3A74231C5F088D0003BC1A /* WKWebViewJavascriptBridge.m in Sources */,
 				2D3A74261C5F11E50003BC1A /* Reachability.m in Sources */,
 				2D3A74211C5F088D0003BC1A /* WebViewJavascriptBridge.m in Sources */,
+				2D6C2C1A1C92ACBB0033B0ED /* IAPIphoneTableViewCell.m in Sources */,
+				2D6C2C201C92B0AD0033B0ED /* IAPIphoneTableFooterView.m in Sources */,
+				2D6C2C1D1C92AF7C0033B0ED /* IAPIphoneTopBarView.m in Sources */,
 				2D3A74151C5C9E4E0003BC1A /* ServerManager.m in Sources */,
 				2DB862D51C50A87D0041C19B /* IAPChoiceView.m in Sources */,
 				2DB862C51C4F82950041C19B /* ViewController.m in Sources */,
@@ -500,7 +540,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "a5c6c756-6da5-4c49-8a0e-60f8c50af81d";
+				PROVISIONING_PROFILE = "59c240f3-d67b-4885-b9a6-7cec041b2528";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -539,7 +579,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "a5c6c756-6da5-4c49-8a0e-60f8c50af81d";
+				PROVISIONING_PROFILE = "59c240f3-d67b-4885-b9a6-7cec041b2528";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -554,6 +594,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = iapTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.crtvup.kfysy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -570,6 +611,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = iapTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.crtvup.kfysy;
 				PRODUCT_NAME = "$(TARGET_NAME)";

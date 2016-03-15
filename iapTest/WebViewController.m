@@ -12,7 +12,7 @@
 #import "ServerManager.h"
 
 //#define TEST_URL @"http://ysy.crtvup.com.cn/cloudMall/mobile-bookshop.action?type=1&passport=yanshi1453442178419"
-#define TEST_URL @"http://172.19.43.61:8080/cloudMall/mobile-bookshop.action?passport=ipadair21416823216703"
+#define TEST_URL @"http://172.19.42.53:5000/cloudMall/mobile-bookshop.action?passport=ipadair21416915469421"
 
 @interface WebViewController () <UIWebViewDelegate>
 {
@@ -36,11 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    NSURL *url = [NSURL URLWithString:TEST_URL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:request];
-//    [self loadExamplePage:self.webView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseSuccessNotification:) name:ServerResponseSuccessNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleServerResponseErrorNotification:) name:ServerResponseErrorNotification object:nil];
@@ -79,6 +74,14 @@
         [iapCtrl attachToParentController:self];
         
     }];
+    
+    [self.bridge setWebViewDelegate:self];
+    
+    // Do any additional setup after loading the view.
+    NSURL *url = [NSURL URLWithString:TEST_URL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:request];
+    //    [self loadExamplePage:self.webView];
 
 }
 

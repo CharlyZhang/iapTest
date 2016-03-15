@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "IAPViewController.h"
+#import "IAPIphoneViewController.h"
 
 #define ITMS_SANDBOX_VERIFY_RECEIPT_URL     @"https://sandbox.itunes.apple.com/verifyReceipt"
 
@@ -30,25 +31,27 @@
     NSURL *plistURL = [[NSBundle mainBundle] URLForResource:@"IAPProductsInfo" withExtension:@"plist"];
     NSDictionary *prodcutInfo = [NSDictionary dictionaryWithContentsOfURL:plistURL];
     
-    IAPViewController *iapCtrl = [[IAPViewController alloc] initWithInfo:prodcutInfo];
-    
-    __block ViewController* blockSelf = self;
-    __weak IAPViewController *weakIapCtrl = iapCtrl;
-    iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
-        if (status == kIAPStatusSuccess) {
-            selectedPid = [[data objectForKey:@"productId"] copy];
-            transactionReceipt = [[data objectForKey:@"receipt"] copy];
-            blockSelf.verifyButton.enabled = YES;
-        }
-        
-        [weakIapCtrl willMoveToParentViewController:nil];
-        [weakIapCtrl.view removeFromSuperview];
-        [weakIapCtrl removeFromParentViewController];
-    };
-    
-    [iapCtrl attachToParentController:self];
-    
-    sender.enabled = NO;
+    IAPIphoneViewController *iapCtrl = [[IAPIphoneViewController alloc]initWithInfo:prodcutInfo];
+    [self presentViewController:iapCtrl animated:YES completion:nil];
+//    IAPViewController *iapCtrl = [[IAPViewController alloc] initWithInfo:prodcutInfo];
+//    
+//    __block ViewController* blockSelf = self;
+//    __weak IAPViewController *weakIapCtrl = iapCtrl;
+//    iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
+//        if (status == kIAPStatusSuccess) {
+//            selectedPid = [[data objectForKey:@"productId"] copy];
+//            transactionReceipt = [[data objectForKey:@"receipt"] copy];
+//            blockSelf.verifyButton.enabled = YES;
+//        }
+//        
+//        [weakIapCtrl willMoveToParentViewController:nil];
+//        [weakIapCtrl.view removeFromSuperview];
+//        [weakIapCtrl removeFromParentViewController];
+//    };
+//    
+//    [iapCtrl attachToParentController:self];
+//    
+//    sender.enabled = NO;
 }
 
 
@@ -83,6 +86,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.verifyButton.enabled = NO;
+    [self testIAP:nil];
 }
 
 #pragma mark -
