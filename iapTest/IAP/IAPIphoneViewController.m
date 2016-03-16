@@ -70,7 +70,7 @@
     if (!_indicatorView) {
         _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         _indicatorView.center = self.view.center;
-        _indicatorView.color = [UIColor blueColor];
+        _indicatorView.color = THEME_COLOR;
         _indicatorView.hidesWhenStopped = YES;
     }
     return _indicatorView;

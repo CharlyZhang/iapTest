@@ -10,8 +10,6 @@
 #import "IAPViewController.h"
 #import "IAPIphoneViewController.h"
 
-#define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-
 #define ITMS_SANDBOX_VERIFY_RECEIPT_URL     @"https://sandbox.itunes.apple.com/verifyReceipt"
 
 @interface ViewController ()

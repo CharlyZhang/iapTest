@@ -9,7 +9,9 @@
 #import "WebViewController.h"
 #import "WebViewJavascriptBridge.h"
 #import "IAP/IAPViewController.h"
+#import "IAP/IAPIphoneViewController.h"
 #import "ServerManager.h"
+#import "IAP/IAPCommon.h"
 
 //#define TEST_URL @"http://ysy.crtvup.com.cn/cloudMall/mobile-bookshop.action?type=1&passport=yanshi1453442178419"
 #define TEST_URL @"http://172.19.42.53:5000/cloudMall/mobile-bookshop.action?passport=ipadair21416915469421"
@@ -57,21 +59,36 @@
         NSMutableDictionary *prodcutInfo = [NSMutableDictionary dictionaryWithContentsOfURL:plistURL];
         [prodcutInfo setObject:selectedPid forKey:@"selectedPid"];
         
-        IAPViewController *iapCtrl = [[IAPViewController alloc] initWithInfo:prodcutInfo];
-        
-        __block WebViewController* blockSelf = self;
-        __weak IAPViewController *weakIapCtrl = iapCtrl;
-        iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
-            if (status == kIAPStatusFail) {
-                [blockSelf.bridge callHandler:@"updateAmout" data:data];
-            }
+        if (isPad) {
+            IAPViewController *iapCtrl = [[IAPViewController alloc] initWithInfo:prodcutInfo];
             
-            [weakIapCtrl willMoveToParentViewController:nil];
-            [weakIapCtrl.view removeFromSuperview];
-            [weakIapCtrl removeFromParentViewController];
-        };
-        
-        [iapCtrl attachToParentController:self];
+            __block WebViewController* blockSelf = self;
+            __weak IAPViewController *weakIapCtrl = iapCtrl;
+            iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
+                if (status == kIAPStatusFail) {
+                    [blockSelf.bridge callHandler:@"updateAmout" data:data];
+                }
+                
+                [weakIapCtrl willMoveToParentViewController:nil];
+                [weakIapCtrl.view removeFromSuperview];
+                [weakIapCtrl removeFromParentViewController];
+            };
+            
+            [iapCtrl attachToParentController:self];
+        }
+        else {
+            IAPIphoneViewController *iapCtrl = [[IAPIphoneViewController alloc]initWithInfo:prodcutInfo];
+            __block WebViewController* blockSelf = self;
+            iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
+                if (status == kIAPStatusFail) {
+                    [blockSelf.bridge callHandler:@"updateAmout" data:data];
+                }
+                
+                [blockSelf dismissViewControllerAnimated:NO completion:nil];
+            };
+            
+            [self presentViewController:iapCtrl animated:YES completion:nil];
+        }
         
     }];
     
@@ -80,8 +97,8 @@
     // Do any additional setup after loading the view.
     NSURL *url = [NSURL URLWithString:TEST_URL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:request];
-    //    [self loadExamplePage:self.webView];
+//    [self.webView loadRequest:request];
+        [self loadExamplePage:self.webView];
 
 }
 

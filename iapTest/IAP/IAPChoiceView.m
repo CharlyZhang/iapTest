@@ -7,9 +7,9 @@
 //
 
 #import "IAPChoiceView.h"
+#import "IAPCommon.h"
 
 #define CHOICE_VIEW_BG_COLOR [UIColor colorWithWhite:243/255.f alpha:1.f]
-#define CHOICE_SELECTED_COLOR [UIColor colorWithRed:30/255.f green:149/255.f blue:234/255.f alpha:1.f]
 
 
 @implementation IAPChoiceView
@@ -30,9 +30,9 @@
     _selected = selected;
     
     if (_selected) {
-        self.layer.borderColor = CHOICE_SELECTED_COLOR.CGColor;
-        self.nameLabel.textColor = CHOICE_SELECTED_COLOR;
-        self.subNameLabel.textColor = CHOICE_SELECTED_COLOR;
+        self.layer.borderColor = THEME_COLOR.CGColor;
+        self.nameLabel.textColor = THEME_COLOR;
+        self.subNameLabel.textColor = THEME_COLOR;
     }
     else {
         self.layer.borderColor = [UIColor darkGrayColor].CGColor;
