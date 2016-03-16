@@ -9,15 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "IAPManager.h"
 #import "IAPObserver.h"
+#import "IAPCommon.h"
 
 @class IAPViewController;
-
-typedef enum {
-    kIAPStatusSuccess,
-    kIAPStatusFail
-} IAPStatus;
-
-typedef void (^IAPBlock)(IAPStatus status, NSDictionary* data);
 
 @interface IAPViewController : UIViewController
 

@@ -19,7 +19,8 @@
 		2D6C2C1A1C92ACBB0033B0ED /* IAPIphoneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C2C191C92ACBB0033B0ED /* IAPIphoneTableViewCell.m */; };
 		2D6C2C1D1C92AF7C0033B0ED /* IAPIphoneTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C2C1C1C92AF7C0033B0ED /* IAPIphoneTopBarView.m */; };
 		2D6C2C201C92B0AD0033B0ED /* IAPIphoneTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C2C1F1C92B0AD0033B0ED /* IAPIphoneTableFooterView.m */; };
-		2D9AFD561C96B6D4005BF278 /* IAPIphoneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D9AFD551C96B6D4005BF278 /* IAPIphoneView.xib */; };
+		2D6E70A61C99042700707863 /* IAPIphoneTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D6E70A51C99042700707863 /* IAPIphoneTableFooterView.xib */; };
+		2D9AFD561C96B6D4005BF278 /* IAPIphoneTopBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D9AFD551C96B6D4005BF278 /* IAPIphoneTopBarView.xib */; };
 		2D9AFD581C96DBB6005BF278 /* IAPIphoneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D9AFD571C96DBB6005BF278 /* IAPIphoneTableViewCell.xib */; };
 		2DB8627F1C47A49F0041C19B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB8627E1C47A49F0041C19B /* main.m */; };
 		2DB862821C47A49F0041C19B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB862811C47A49F0041C19B /* AppDelegate.m */; };
@@ -82,7 +83,9 @@
 		2D6C2C1C1C92AF7C0033B0ED /* IAPIphoneTopBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPIphoneTopBarView.m; path = IAP/IAPIphoneTopBarView.m; sourceTree = "<group>"; };
 		2D6C2C1E1C92B0AD0033B0ED /* IAPIphoneTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAPIphoneTableFooterView.h; path = IAP/IAPIphoneTableFooterView.h; sourceTree = "<group>"; };
 		2D6C2C1F1C92B0AD0033B0ED /* IAPIphoneTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IAPIphoneTableFooterView.m; path = IAP/IAPIphoneTableFooterView.m; sourceTree = "<group>"; };
-		2D9AFD551C96B6D4005BF278 /* IAPIphoneView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IAPIphoneView.xib; path = IAP/IAPIphoneView.xib; sourceTree = "<group>"; };
+		2D6E70A51C99042700707863 /* IAPIphoneTableFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IAPIphoneTableFooterView.xib; path = IAP/IAPIphoneTableFooterView.xib; sourceTree = "<group>"; };
+		2D6E70A71C99346100707863 /* IAPCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IAPCommon.h; path = IAP/IAPCommon.h; sourceTree = "<group>"; };
+		2D9AFD551C96B6D4005BF278 /* IAPIphoneTopBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IAPIphoneTopBarView.xib; path = IAP/IAPIphoneTopBarView.xib; sourceTree = "<group>"; };
 		2D9AFD571C96DBB6005BF278 /* IAPIphoneTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IAPIphoneTableViewCell.xib; path = IAP/IAPIphoneTableViewCell.xib; sourceTree = "<group>"; };
 		2DB8627A1C47A49F0041C19B /* iapTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iapTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB8627E1C47A49F0041C19B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -174,8 +177,9 @@
 				2D6C2C1C1C92AF7C0033B0ED /* IAPIphoneTopBarView.m */,
 				2D6C2C1E1C92B0AD0033B0ED /* IAPIphoneTableFooterView.h */,
 				2D6C2C1F1C92B0AD0033B0ED /* IAPIphoneTableFooterView.m */,
-				2D9AFD551C96B6D4005BF278 /* IAPIphoneView.xib */,
+				2D9AFD551C96B6D4005BF278 /* IAPIphoneTopBarView.xib */,
 				2D9AFD571C96DBB6005BF278 /* IAPIphoneTableViewCell.xib */,
+				2D6E70A51C99042700707863 /* IAPIphoneTableFooterView.xib */,
 			);
 			name = iphone;
 			sourceTree = "<group>";
@@ -256,6 +260,7 @@
 		2DB862B51C4F2BC90041C19B /* IAP */ = {
 			isa = PBXGroup;
 			children = (
+				2D6E70A71C99346100707863 /* IAPCommon.h */,
 				2D6C2C171C8FFC790033B0ED /* iphone */,
 				2DB862B61C4F2C150041C19B /* IAPObserver.h */,
 				2DB862B71C4F2C150041C19B /* IAPObserver.m */,
@@ -397,9 +402,10 @@
 				2DB8628D1C47A49F0041C19B /* LaunchScreen.storyboard in Resources */,
 				2DB862CD1C4FA1A40041C19B /* IAPViewController.xib in Resources */,
 				2DB8628A1C47A49F0041C19B /* Assets.xcassets in Resources */,
-				2D9AFD561C96B6D4005BF278 /* IAPIphoneView.xib in Resources */,
+				2D9AFD561C96B6D4005BF278 /* IAPIphoneTopBarView.xib in Resources */,
 				2D9AFD581C96DBB6005BF278 /* IAPIphoneTableViewCell.xib in Resources */,
 				2DB862881C47A49F0041C19B /* Main.storyboard in Resources */,
+				2D6E70A61C99042700707863 /* IAPIphoneTableFooterView.xib in Resources */,
 				2DB862D91C522DCE0041C19B /* logo.xcassets in Resources */,
 				2DB862D21C507F3D0041C19B /* IAPChoiceView.xib in Resources */,
 				2DB862E61C57413E0041C19B /* ExampleApp.html in Resources */,

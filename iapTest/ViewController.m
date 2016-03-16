@@ -10,6 +10,8 @@
 #import "IAPViewController.h"
 #import "IAPIphoneViewController.h"
 
+#define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
 #define ITMS_SANDBOX_VERIFY_RECEIPT_URL     @"https://sandbox.itunes.apple.com/verifyReceipt"
 
 @interface ViewController ()
@@ -31,27 +33,43 @@
     NSURL *plistURL = [[NSBundle mainBundle] URLForResource:@"IAPProductsInfo" withExtension:@"plist"];
     NSDictionary *prodcutInfo = [NSDictionary dictionaryWithContentsOfURL:plistURL];
     
-    IAPIphoneViewController *iapCtrl = [[IAPIphoneViewController alloc]initWithInfo:prodcutInfo];
-    [self presentViewController:iapCtrl animated:YES completion:nil];
-//    IAPViewController *iapCtrl = [[IAPViewController alloc] initWithInfo:prodcutInfo];
-//    
-//    __block ViewController* blockSelf = self;
-//    __weak IAPViewController *weakIapCtrl = iapCtrl;
-//    iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
-//        if (status == kIAPStatusSuccess) {
-//            selectedPid = [[data objectForKey:@"productId"] copy];
-//            transactionReceipt = [[data objectForKey:@"receipt"] copy];
-//            blockSelf.verifyButton.enabled = YES;
-//        }
-//        
-//        [weakIapCtrl willMoveToParentViewController:nil];
-//        [weakIapCtrl.view removeFromSuperview];
-//        [weakIapCtrl removeFromParentViewController];
-//    };
-//    
-//    [iapCtrl attachToParentController:self];
-//    
-//    sender.enabled = NO;
+    if (isPad) {
+        IAPViewController *iapCtrl = [[IAPViewController alloc] initWithInfo:prodcutInfo];
+        
+        __block ViewController* blockSelf = self;
+        __weak IAPViewController *weakIapCtrl = iapCtrl;
+        iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
+            if (status == kIAPStatusSuccess) {
+                selectedPid = [[data objectForKey:@"productId"] copy];
+                transactionReceipt = [[data objectForKey:@"receipt"] copy];
+                blockSelf.verifyButton.enabled = YES;
+            }
+            
+            [weakIapCtrl willMoveToParentViewController:nil];
+            [weakIapCtrl.view removeFromSuperview];
+            [weakIapCtrl removeFromParentViewController];
+        };
+        
+        [iapCtrl attachToParentController:self];
+    }
+    else {
+        IAPIphoneViewController *iapCtrl = [[IAPIphoneViewController alloc]initWithInfo:prodcutInfo];
+        __block ViewController* blockSelf = self;
+        iapCtrl.callBackHandler = ^(IAPStatus status, NSDictionary *data) {
+            if (status == kIAPStatusSuccess) {
+                selectedPid = [[data objectForKey:@"productId"] copy];
+                transactionReceipt = [[data objectForKey:@"receipt"] copy];
+                blockSelf.verifyButton.enabled = YES;
+            }
+            
+            [blockSelf dismissViewControllerAnimated:NO completion:nil];
+        };
+        
+        [self presentViewController:iapCtrl animated:YES completion:nil];
+    }
+    
+    
+    sender.enabled = NO;
 }
 
 
@@ -86,7 +104,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.verifyButton.enabled = NO;
-    [self testIAP:nil];
 }
 
 #pragma mark -

@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@interface IAPIphonePurchaseBttuon : UIButton
+
+@end
+
 @interface IAPIphoneTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *itemNameLabel;
-@property (weak, nonatomic) IBOutlet UIButton *purchaseButton;
+@property (weak, nonatomic) IBOutlet IAPIphonePurchaseBttuon *purchaseButton;
 
 @end
