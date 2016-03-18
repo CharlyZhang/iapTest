@@ -24,7 +24,7 @@
     IAPChoiceView *selectedView;
     NSUInteger selectedIdx;
     NSArray *productIds;
-    NSArray *productPrices;
+    NSArray *products;
 }
 @property (weak, nonatomic) IBOutlet UIView *maskView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicatorView;
@@ -44,10 +44,8 @@
 
 - (instancetype)initWithInfo:(NSDictionary*)info {
     if (self = [super init]) {
-        NSDictionary *products = info[@"products"];
-        productIds = [products objectForKey:@"productIds"];
+        productIds = [info objectForKey:@"productIds"];
         selectedIdx = [productIds indexOfObject:info[@"selectedPid"]];
-        productPrices = [products objectForKey:@"productPrices"];
     }
     return self;
 }
@@ -135,6 +133,13 @@
     else {
         [self configureIAP];
     }
+    
+    [self.containerView setHidden:YES];
+    [self.maskView setHidden:NO];
+    [self.indicatorView startAnimating];
+    
+    [[IAPManager sharedInstance] retrieveProduct:productIds];
+
 }
 
 - (void)dealloc
@@ -154,7 +159,7 @@
 
 - (IBAction)purchase:(UIButton *)sender
 {
-    [[IAPManager sharedInstance]purchase:productIds[selectedIdx]];
+    [[IAPManager sharedInstance]purchase:products[selectedIdx]];
     [self.containerView setHidden:YES];
     [self.maskView setHidden:YES];
     [self.indicatorView startAnimating];
@@ -173,25 +178,6 @@
     self.purchaseView.backgroundColor = [UIColor clearColor];
     self.tipsView.backgroundColor = [UIColor clearColor];
     
-    // choice view
-    CGPoint origin;
-    for (int i = 0; i < productIds.count; i++) {
-        origin.x = (i % 3) * (CHOICE_SIZE + CHOICE_WIDTH_DELTA) + CHOICE_LEFT_MARGIN;
-        origin.y = (i / 3) * (CHOICE_SIZE + CHOICE_HEIGHT_DELTA) + CHOICE_TOP_MARGIN;
-        IAPChoiceView *view = [[NSBundle mainBundle]loadNibNamed:@"IAPChoiceView" owner:nil options:nil][0];
-        CGRect frame = view.frame;
-        frame.origin = origin;
-        view.frame = frame;
-        view.tag = i;
-        NSUInteger price = [productPrices[i] integerValue];
-        view.nameLabel.text = [NSString stringWithFormat:@"%lu元",(unsigned long)price];
-        view.subNameLabel.text = [NSString stringWithFormat:@"（%lu阅读豆）",(unsigned long)price];
-        if (i == selectedIdx) [self selectChoiceView:view];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
-        [view addGestureRecognizer:tap];
-        [self.choiceView addSubview:view];
-    }
-    
     // purcase view
     self.amountLabel.textColor = THEME_COLOR;
     self.purchaseButton.backgroundColor = THEME_COLOR;
@@ -199,15 +185,51 @@
     
 }
 
+- (void) updateChoiceViews {
+    // choice view
+    CGPoint origin;
+    for (int i = 0; i < products.count; i++) {
+        origin.x = (i % 3) * (CHOICE_SIZE + CHOICE_WIDTH_DELTA) + CHOICE_LEFT_MARGIN;
+        origin.y = (i / 3) * (CHOICE_SIZE + CHOICE_HEIGHT_DELTA) + CHOICE_TOP_MARGIN;
+        IAPChoiceView *view = [[NSBundle mainBundle]loadNibNamed:@"IAPChoiceView" owner:nil options:nil][0];
+        CGRect frame = view.frame;
+        frame.origin = origin;
+        view.frame = frame;
+        view.tag = i;
+        SKProduct *product = products[i];
+
+        view.nameLabel.text = [NSString stringWithFormat:@"%lu元",(unsigned long)[product.price integerValue]];
+        view.subNameLabel.text = [NSString stringWithFormat:@"（%@）",product.localizedTitle];
+        if (i == selectedIdx) [self selectChoiceView:view];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+        [view addGestureRecognizer:tap];
+        [self.choiceView addSubview:view];
+    }
+}
+
+NSInteger productSortFunc1(id obj1, id obj2, void *context) {
+    SKProduct *p1 =(SKProduct*) obj1;
+    SKProduct *p2 =(SKProduct*) obj2;
+    
+    return [p1.productIdentifier compare:p2.productIdentifier];
+}
+
+
 - (void) configureIAP
 {
     // request handlers
     IAPManager *iapManager = [IAPManager sharedInstance];
     iapManager.requestResponseHandler = ^(NSArray* results) {
+        products = [results sortedArrayUsingFunction:productSortFunc1 context:nil];
         if (results == nil)  {
-            [self alertWithTitle:@"错误" message:@"请求商品列表时错误" handler:^(UIAlertAction *action){
+     //       [self alertWithTitle:@"错误" message:@"请求商品列表时错误" handler:^(UIAlertAction *action){
                 self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"IAP product requested error"});
-            }];
+     //       }];
+        }
+        else {
+            [self.containerView setHidden:NO];
+            [self.indicatorView stopAnimating];
+            [self updateChoiceViews];
         }
     };
     
@@ -230,8 +252,8 @@
         [targetView setSelected:YES];
         selectedView = targetView;
         selectedIdx = targetView.tag;
-        NSUInteger price = [productPrices[selectedIdx] integerValue];
-        self.amountLabel.text = [NSString stringWithFormat:@"%lu元",(unsigned long)price];
+        SKProduct* product = products[selectedIdx];
+        self.amountLabel.text = [NSString stringWithFormat:@"%lu元",(unsigned long)[product.price integerValue]];
     }
 }
 

@@ -23,7 +23,6 @@
 {
     NSUInteger selectedIdx;
     NSArray *productIds;
-    NSArray *productPrices;
     NSArray *products;
 }
 
@@ -80,8 +79,7 @@
 
 - (instancetype)initWithInfo:(NSDictionary*)info {
     if (self = [super init]) {
-        NSDictionary *prods = info[@"products"];
-        productIds = [prods objectForKey:@"productIds"];
+        productIds = [info objectForKey:@"productIds"];
         selectedIdx = [productIds indexOfObject:info[@"selectedPid"]];
     }
     return self;
@@ -97,7 +95,9 @@
         [self alertWithTitle:@"警告" message:@"网络连接断开" handler:^(UIAlertAction *action){
             self.callBackHandler(kIAPStatusFail,@{@"status":@"-4",@"msg":@"Network disconnected"});
         }];
+        
         return;
+        
     }
     
     [[ServerManager sharedInstance]reupdateIfNeed];
