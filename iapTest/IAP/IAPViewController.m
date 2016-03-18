@@ -203,8 +203,8 @@
 {
     // request handlers
     IAPManager *iapManager = [IAPManager sharedInstance];
-    iapManager.requestResponseHandler = ^(BOOL result) {
-        if (result == NO)  {
+    iapManager.requestResponseHandler = ^(NSArray* results) {
+        if (results == nil)  {
             [self alertWithTitle:@"错误" message:@"请求商品列表时错误" handler:^(UIAlertAction *action){
                 self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"IAP product requested error"});
             }];

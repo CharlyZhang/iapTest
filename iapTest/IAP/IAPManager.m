@@ -30,15 +30,14 @@
 }
 
 // Retrieve product information from the App Store
-- (BOOL)purchase:(NSString*) productId
+- (BOOL)retrieveProduct:(NSArray*) productIds
 {
-    if (productId == nil) {
+    if (productIds == nil) {
         return NO;
     }
     
-    NSLog(@"=== Purchase new product(%@)",productId);
     // Create a product request object and initialize it with our product identifiers
-    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:@[productId]]];
+    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productIds]];
     request.delegate = self;
     
     // Send the request to the App Store
@@ -46,7 +45,7 @@
     return YES;
 }
 
-- (BOOL)buy:(SKProduct*) product
+- (BOOL)purchase:(SKProduct*) product
 {
     if (product == nil) {
         return NO;
@@ -62,16 +61,9 @@
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
     // check if the response products mathces
-    BOOL result = NO;
-    if (1 == response.products.count) {
-        result = [self buy:response.products[0]];
-        NSLog(@"The requested products(%@) has been returned.",response.products[0].productIdentifier);
-    }
-    else {
-        NSLog(@"The number of product responsed is not 1");
-    }
+    NSArray* products = response.products;
     
-    if (self.requestResponseHandler)  self.requestResponseHandler(result);
+    if (self.requestResponseHandler)  self.requestResponseHandler(products);
 }
 
 
@@ -82,7 +74,7 @@
 {
     if (self.requestResponseHandler) {
         NSLog(@"Product Request Status: %@",error.localizedDescription);
-        self.requestResponseHandler(NO);
+        self.requestResponseHandler(nil);
     }
 }
 

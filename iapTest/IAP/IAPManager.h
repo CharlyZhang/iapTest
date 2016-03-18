@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @import StoreKit;
 
-typedef void (^requestResponseBlock)(BOOL result);
+typedef void (^requestResponseBlock)(NSArray* products);
 
 @interface IAPManager : NSObject
 
@@ -18,6 +18,7 @@ typedef void (^requestResponseBlock)(BOOL result);
 @property (nonatomic) BOOL hasDeviceEnabledIAP;
 @property (nonatomic, copy) requestResponseBlock requestResponseHandler;
 
-- (BOOL)purchase:(NSString*) productId;
+- (BOOL)retrieveProduct:(NSArray*) productIds;
+- (BOOL)purchase:(SKProduct*) product;
 
 @end

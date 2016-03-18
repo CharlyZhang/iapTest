@@ -24,6 +24,7 @@
     NSUInteger selectedIdx;
     NSArray *productIds;
     NSArray *productPrices;
+    NSArray *products;
 }
 
 @property (nonatomic, strong) IAPIphoneTopBarView * topBar;
@@ -79,10 +80,9 @@
 
 - (instancetype)initWithInfo:(NSDictionary*)info {
     if (self = [super init]) {
-        NSDictionary *products = info[@"products"];
-        productIds = [products objectForKey:@"productIds"];
+        NSDictionary *prods = info[@"products"];
+        productIds = [prods objectForKey:@"productIds"];
         selectedIdx = [productIds indexOfObject:info[@"selectedPid"]];
-        productPrices = [products objectForKey:@"productPrices"];
     }
     return self;
 }
@@ -97,9 +97,7 @@
         [self alertWithTitle:@"警告" message:@"网络连接断开" handler:^(UIAlertAction *action){
             self.callBackHandler(kIAPStatusFail,@{@"status":@"-4",@"msg":@"Network disconnected"});
         }];
-        
         return;
-        
     }
     
     [[ServerManager sharedInstance]reupdateIfNeed];
@@ -112,6 +110,12 @@
     else {
         [self configureIAP];
     }
+    
+    
+    [self.maskView setHidden:NO];
+    [self.indicatorView startAnimating];
+    
+    [[IAPManager sharedInstance] retrieveProduct:productIds];
 }
 
 - (void)dealloc
@@ -132,16 +136,18 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return productIds.count;
+    return products.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     IAPIphoneTableViewCell *cell = (IAPIphoneTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
     
-    NSUInteger price = [productPrices[indexPath.row] integerValue];
-    cell.itemNameLabel.text = [NSString stringWithFormat:@"%lu阅读豆",(unsigned long)price];
-    [cell.purchaseButton setTitle:[NSString stringWithFormat:@"%lu元",(unsigned long)price] forState:UIControlStateNormal];
+//    NSUInteger price = [productPrices[indexPath.row] integerValue];
+    SKProduct *product = products[indexPath.row];
+    
+    cell.itemNameLabel.text = [NSString stringWithFormat:@"%@",product.localizedTitle];
+    [cell.purchaseButton setTitle:[NSString stringWithFormat:@"%lu元",(unsigned long)[product.price integerValue]] forState:UIControlStateNormal];
     cell.purchaseButton.tag = indexPath.row;
     [cell.purchaseButton removeTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
     [cell.purchaseButton addTarget:self action:@selector(purchase:) forControlEvents:UIControlEventTouchUpInside];
@@ -163,7 +169,7 @@
 }
 
 - (void)purchase:(UIButton*)sender {
-    [[IAPManager sharedInstance]purchase:productIds[sender.tag]];
+    [[IAPManager sharedInstance]purchase:products[sender.tag]];
     [self.maskView setHidden:NO];
     [self.indicatorView startAnimating];
 }
@@ -193,15 +199,25 @@
     [self.indicatorView  stopAnimating];
 }
 
-- (void) configureIAP
-{
+NSInteger productSortFunc(id obj1, id obj2, void *context) {
+    SKProduct *p1 =(SKProduct*) obj1;
+    SKProduct *p2 =(SKProduct*) obj2;
+    
+    return [p1.productIdentifier compare:p2.productIdentifier];
+}
+
+- (void) configureIAP {
     // request handlers
     IAPManager *iapManager = [IAPManager sharedInstance];
-    iapManager.requestResponseHandler = ^(BOOL result) {
-        if (result == NO)  {
-            [self alertWithTitle:@"错误" message:@"请求商品列表时错误" handler:^(UIAlertAction *action){
-                self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"IAP product requested error"});
-            }];
+    iapManager.requestResponseHandler = ^(NSArray* results) {
+        products = [results sortedArrayUsingFunction:productSortFunc context:nil];
+        if (products == nil)  {
+            self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"IAP product requested error"});
+        }
+        else {
+            [self.maskView setHidden:YES];
+            [self.indicatorView stopAnimating];
+            [self.tableView reloadData];
         }
     };
     
@@ -252,4 +268,8 @@
         self.callBackHandler(kIAPStatusFail,@{@"status":@"-2",@"msg":@"IAP payment error"});
     }
 }
+
+
+
+
 @end

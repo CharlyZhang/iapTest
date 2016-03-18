@@ -8,12 +8,12 @@
 	<dict>
 		<key>productIds</key>
 		<array>
-			<string>com.crtvup.kfysy.product.6coins</string>
-			<string>com.crtvup.kfysy.product.12coins</string>
-			<string>com.crtvup.kfysy.product.18coins</string>
-			<string>com.crtvup.kfysy.product.30coins</string>
-			<string>com.crtvup.kfysy.product.50coins</string>
-			<string>com.crtvup.kfysy.product.100coins</string>
+			<string>com.crtvup.kfysy.product1</string>
+			<string>com.crtvup.kfysy.product2</string>
+			<string>com.crtvup.kfysy.product3</string>
+			<string>com.crtvup.kfysy.product4</string>
+			<string>com.crtvup.kfysy.product5</string>
+			<string>com.crtvup.kfysy.product6</string>
 		</array>
 		<key>productPrices</key>
 		<array>
